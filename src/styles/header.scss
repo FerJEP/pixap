@@ -5,7 +5,8 @@
   align-items: center;
   background: var(--mainColor);
   position: fixed;
-  color: white;
+  color: rgb(235, 206, 206);
+  z-index: 100;
 }
 
 .navbar-left {
