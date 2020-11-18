@@ -32,7 +32,7 @@
   align-items: center;
   width: 100%;
 
-  #input-filename {
+  #filename-input {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -79,7 +79,7 @@
       transform: translateX(100%);
     }
 
-    #input-filename {
+    #filename-input {
       position: static;
       transform: none;
       margin-bottom: 1rem;
