@@ -1,0 +1,56 @@
+/*
+    In here goes all the styles imported, and global styles.
+    Then, this file is imported to the app index.js
+
+*/
+
+// Global Style
+
+@import './header.scss';
+@import './body.scss';
+@import './tools.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --mainColor: #1f1f1f;
+  --headerHeight: 80px;
+}
+
+#app {
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Roboto', sans-serif;
+  background: gray;
+}
+
+input {
+  font-family: 'Roboto', sans-serif;
+}
+
+a {
+  display: block;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+.center-page {
+  padding: 0 2rem;
+}
+
+.icon {
+  background: none;
+  outline: none;
+  border: none;
+  width: 50px;
+  height: 50px;
+  font-size: 50px;
+  color: white;
+}

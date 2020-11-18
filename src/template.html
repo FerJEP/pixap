@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
+    <title>Pixap</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="app-header center-page">
+        <div class="navbar-left">
+          <a href="/" class="logo">
+            <h1>PIXAP</h1>
+          </a>
+          <button class="icon" id="navbar-btn">
+            <span
+              class="iconify"
+              data-inline="false"
+              data-icon="cil:hamburger-menu"
+            ></span>
+          </button>
+        </div>
+        <div class="navbar-right" id="navbar-mobile">
+          <input type="text" id="input-filename" value="Untiled" />
+          <button class="icon" id="save-btn">
+            <span
+              class="iconify"
+              data-inline="false"
+              data-icon="ant-design:save-outlined"
+            ></span>
+          </button>
+        </div>
+      </header>
+      <main class="app-body">
+        <div class="app-body-inner">
+          <div class="tools" id="tools-container"></div>
+          <canvas
+            id="canvas"
+            width="64"
+            height="64"
+            style="width: 90vw; max-width: 500px"
+          ></canvas>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
