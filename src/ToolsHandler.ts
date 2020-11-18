@@ -90,7 +90,7 @@ export class ToolsHandler {
     this.container.addEventListener('click', ({ target }) => {
       const toolSelected = tools.find(tool => tool.element === target)
 
-      if (toolSelected) this.currentTool = toolSelected
+      if (toolSelected && toolSelected.method) this.currentTool = toolSelected
     })
   }
 
