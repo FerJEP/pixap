@@ -1,5 +1,6 @@
 import './styles/index.style' //Main style file
 import './scripts/navbar' //Navbar mobile handler
+import './scripts/saveImage' //Save image handler
 import { ToolsHandler } from './ToolsHandler'
 
 const toolsContainer = document.getElementById('tools-container')
