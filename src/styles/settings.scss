@@ -1,0 +1,77 @@
+#app-settings {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  display: none;
+
+  &.show {
+    display: block;
+  }
+}
+
+.settings-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  width: 90%;
+  max-width: 400px;
+  background: var(--mainColor);
+  padding: 1rem;
+  border: 3px solid white;
+}
+
+.settings {
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-label {
+    display: block;
+    input {
+      display: block;
+      width: 100%;
+      height: 1rem;
+      margin-top: 5px;
+    }
+  }
+
+  &-label + &-label {
+    margin-top: 1rem;
+  }
+}
+
+#settings-form:invalid [type='submit'] {
+  background: rgb(124, 0, 0);
+}
+
+#settings-apply-btn {
+  background: var(--secondColor);
+  border: none;
+  outline: none;
+  font-size: 1.2rem;
+  color: white;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.5rem;
+}
+
+#settings-close-btn {
+  font-size: 1rem;
+  text-align: right;
+  width: 30px;
+}
+
+#settings-helper-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0.5;
+}
