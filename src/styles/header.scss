@@ -59,6 +59,7 @@
 @media all and (max-width: 768px) {
   .navbar-left {
     width: 100%;
+    align-items: center;
 
     .logo {
       position: absolute;
@@ -67,7 +68,7 @@
     }
 
     #navbar-btn {
-      display: block;
+      display: flex;
       margin-left: auto;
     }
   }
@@ -92,6 +93,10 @@
       position: static;
       transform: none;
       margin-bottom: 1rem;
+    }
+
+    .icon + .icon {
+      margin: 0;
     }
   }
 }
