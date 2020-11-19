@@ -35,8 +35,55 @@
               data-icon="ant-design:save-outlined"
             ></span>
           </button>
+          <button class="icon" id="settings-btn">
+            <span
+              class="iconify"
+              data-inline="false"
+              data-icon="codicon:gear"
+            ></span>
+          </button>
         </div>
       </header>
+      <div id="app-settings">
+        <div class="settings-container">
+          <div class="settings-header">
+            <h1>Settings</h1>
+            <button class="icon" id="settings-close-btn">
+              <span
+                class="iconify"
+                data-icon="emojione-monotone:heavy-multiplication-x"
+                data-inline="false"
+              ></span>
+            </button>
+          </div>
+          <form id="settings-form">
+            <label class="settings-label">
+              Width
+              <input
+                type="number"
+                name="canvasWidth"
+                minlength="1"
+                min="1"
+                max="256"
+                required
+              />
+            </label>
+            <label class="settings-label">
+              Height
+              <input
+                type="number"
+                name="canvasHeight"
+                minlength="1"
+                min="1"
+                max="256"
+                required
+              />
+            </label>
+            <button type="submit" id="settings-apply-btn">Apply</button>
+          </form>
+        </div>
+        <div id="settings-helper-layer"></div>
+      </div>
       <main class="app-body">
         <div class="app-body-inner">
           <div class="tools" id="tools-container"></div>
