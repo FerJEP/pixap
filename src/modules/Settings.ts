@@ -21,6 +21,7 @@ const settings: ISettings = {
 
 //Initialization
 loadSettingsToForm()
+applySettings()
 
 // Form's listener
 settingsForm.addEventListener('submit', e => {
