@@ -1,77 +1,71 @@
-import { canvas } from './canvas'
+import { canvas } from '../canvas'
 
 interface ISettings {
   canvasWidth: number
   canvasHeight: number
 }
 
-interface IPartialSettings extends Partial<ISettings> {}
+// Dom elements
+const settingsForm = document.getElementById('settings-form') as HTMLFormElement
+const settingsCloseBtn = document.getElementById('settings-close-btn')
+const settingsContainer = document.getElementById('settings-container')
 
-const defaultSettings: ISettings = {
+if (!settingsForm || !settingsCloseBtn || !settingsContainer)
+  throw new Error('Invalid setting elements')
+
+// Declarations
+const settings: ISettings = {
   canvasWidth: 16,
   canvasHeight: 16,
 }
 
-export class SettingsMenuHandler {
-  private settings: ISettings
-  private appSettingsElement: HTMLElement
-  private form: HTMLFormElement
-  private settingsCloseBtn: HTMLButtonElement
+//Initialization
+loadSettingsToForm()
 
-  constructor(_settings?: IPartialSettings) {
-    this.settings = { ...defaultSettings, ..._settings }
+// Form's listener
+settingsForm.addEventListener('submit', e => {
+  e.preventDefault()
+  getSettings()
+  applySettings()
+})
 
-    this.appSettingsElement = document.getElementById('app-settings')!
-    this.form = document.getElementById('settings-form') as HTMLFormElement
-    this.settingsCloseBtn = document.getElementById(
-      'settings-close-btn'
-    ) as HTMLButtonElement
+// Close button listener
+settingsCloseBtn.addEventListener('click', () => {
+  settingsContainer.classList.remove('show')
+  loadSettingsToForm()
+})
 
-    this.loadSettingsToForm()
+// Methods
+function getSettings() {
+  const keys = Object.keys(settings)
 
-    this.form.addEventListener('submit', e => {
-      e.preventDefault()
-      this.getSettings()
-      this.applySettings()
-    })
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i] as keyof ISettings
 
-    this.settingsCloseBtn.addEventListener('click', () => {
-      this.appSettingsElement.classList.remove('show')
-      this.loadSettingsToForm()
-    })
-  }
+    const input = settingsForm.elements.namedItem(key)
 
-  getSettings() {
-    const keys = Object.keys(this.settings)
-
-    for (let i = 0; i < keys.length; i++) {
-      const key = keys[i] as keyof ISettings
-
-      const input = this.form.elements.namedItem(key)
-
-      if (input instanceof HTMLInputElement && input.checkValidity()) {
-        this.settings[key] = Number(input.value)
-      }
+    if (input instanceof HTMLInputElement && input.checkValidity()) {
+      settings[key] = Number(input.value)
     }
   }
+}
 
-  applySettings() {
-    canvas.width = this.settings.canvasWidth
-    canvas.height = this.settings.canvasHeight
-    canvas.dispatchEvent(new Event('resize'))
-  }
+function applySettings() {
+  canvas.width = settings.canvasWidth
+  canvas.height = settings.canvasHeight
+  canvas.dispatchEvent(new Event('resize'))
+}
 
-  loadSettingsToForm() {
-    const keys = Object.keys(this.settings)
+function loadSettingsToForm() {
+  const keys = Object.keys(settings)
 
-    for (let i = 0; i < keys.length; i++) {
-      const key = keys[i] as keyof ISettings
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i] as keyof ISettings
 
-      const input = this.form.elements.namedItem(key)
+    const input = settingsForm.elements.namedItem(key)
 
-      if (input instanceof HTMLInputElement) {
-        input.value = String(this.settings[key])
-      }
+    if (input instanceof HTMLInputElement) {
+      input.value = String(settings[key])
     }
   }
 }

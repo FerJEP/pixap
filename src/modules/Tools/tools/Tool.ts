@@ -1,4 +1,4 @@
-import { getIcon } from '../scripts/getIcon'
+import { getIcon } from '../../../scripts/getIcon'
 
 export type MouseInfo = {
   down: {

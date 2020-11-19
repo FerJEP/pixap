@@ -1,4 +1,4 @@
-import { lineAlgo } from '../scripts/lineAlgo'
+import { lineAlgo } from '../../../scripts/lineAlgo'
 import { Tool, ToolMethod } from './Tool'
 
 // An eraser tool

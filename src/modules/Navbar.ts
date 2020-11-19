@@ -1,5 +1,6 @@
-import { saveImage } from './saveImage'
+import { saveImage } from '../scripts/saveImage'
 
+// Navbar mobile
 const navbarBtn = document.getElementById('navbar-btn')
 const navbarMobile = document.getElementById('navbar-mobile')
 
@@ -9,9 +10,7 @@ navbarBtn.onclick = () => {
   navbarMobile.classList.toggle('show')
 }
 
-//elements
-
-//Save image
+// Save image button
 const saveBtn = document.getElementById('save-btn')
 const fileNameInput = document.getElementById(
   'filename-input'
@@ -19,7 +18,7 @@ const fileNameInput = document.getElementById(
 
 saveBtn?.addEventListener('click', () => saveImage(fileNameInput.value))
 
-// Settings menu
+// Settings menu button
 const settingsBtn = document.getElementById('settings-btn')
 const appSettings = document.getElementById('app-settings')
 

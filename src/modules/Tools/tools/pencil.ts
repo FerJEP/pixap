@@ -1,5 +1,5 @@
+import { lineAlgo } from '../../../scripts/lineAlgo'
 import { Tool, ToolMethod } from './Tool'
-import { lineAlgo } from '../scripts/lineAlgo'
 
 const pencilElement = Tool.createElement(
   'button',

@@ -1,4 +1,4 @@
-import { cx } from '../canvas'
+import { cx } from '../../../canvas'
 import { Tool } from './Tool'
 
 // A color picker tool, relying on the browser color input
