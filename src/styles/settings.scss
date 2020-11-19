@@ -1,8 +1,10 @@
-#app-settings {
+#settings-container {
   position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 150;
   width: 100vw;
   height: 100vh;
-  z-index: 100;
   display: none;
 
   &.show {
@@ -10,20 +12,19 @@
   }
 }
 
-.settings-container {
+.settings-menu {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 10;
+  z-index: 50;
+
+  background: var(--mainColor);
   width: 90%;
   max-width: 400px;
-  background: var(--mainColor);
   padding: 1rem;
-  border: 3px solid white;
-}
+  border: 2px solid white;
 
-.settings {
   &-header {
     display: flex;
     justify-content: space-between;

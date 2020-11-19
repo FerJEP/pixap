@@ -20,8 +20,8 @@ saveBtn?.addEventListener('click', () => saveImage(fileNameInput.value))
 
 // Settings menu button
 const settingsBtn = document.getElementById('settings-btn')
-const appSettings = document.getElementById('app-settings')
+import { settingsContainer } from './Settings'
 
 settingsBtn?.addEventListener('click', () => {
-  appSettings?.classList.toggle('show')
+  settingsContainer?.classList.toggle('show')
 })

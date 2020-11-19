@@ -69,3 +69,7 @@ function loadSettingsToForm() {
     }
   }
 }
+
+// exports
+
+export { settingsContainer }

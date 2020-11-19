@@ -12,7 +12,7 @@ interface IRatio {
 }
 
 // Dom element
-const container = document.getElementById('toolsContainer')
+const container = document.getElementById('tools-container')
 
 if (!container) throw new Error('Invalid tools container')
 
