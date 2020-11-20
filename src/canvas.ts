@@ -1,8 +1,25 @@
-const canvas = document.getElementById('canvas') as HTMLCanvasElement
+const canvas = document.getElementById('canvas-drawing') as HTMLCanvasElement
 
 if (!(canvas instanceof HTMLCanvasElement))
   throw new Error('Invalid Canvas element')
 
-export const cx = canvas.getContext('2d')!
+const cx = canvas.getContext('2d')!
 
-export { canvas }
+ImageSmoothingFalse()
+
+canvas.addEventListener('resize', ImageSmoothingFalse)
+
+export { canvas, cx }
+
+function ImageSmoothingFalse() {
+  //@ts-ignore
+  cx.imageSmoothingEnabled = false
+  //@ts-ignore
+  cx.webkitImageSmoothingEnabled = false
+  //@ts-ignore
+  cx.mozImageSmoothingEnabled = false
+  //@ts-ignore
+  cx.msImageSmoothingEnabled = false
+  //@ts-ignore
+  cx.oImageSmoothingEnabled = false
+}
