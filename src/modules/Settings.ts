@@ -54,7 +54,7 @@ function getSettings() {
 function applySettings() {
   canvas.width = settings.canvasWidth
   canvas.height = settings.canvasHeight
-  canvas.dispatchEvent(new Event('resize'))
+  window.dispatchEvent(new Event('resize'))
 }
 
 function loadSettingsToForm() {

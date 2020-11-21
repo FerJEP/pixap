@@ -11,7 +11,7 @@ const cx = canvas.getContext('2d')!
 ImageSmoothingFalse()
 checkeredCanvas('#d3d3d3', '#ffffff')
 
-canvas.addEventListener('resize', () => {
+window.addEventListener('resize', () => {
   ImageSmoothingFalse()
   checkeredCanvas('#d3d3d3', '#ffffff')
 })

@@ -30,13 +30,13 @@ let currentTool = tools[0]
 // Initialization
 updateRatio()
 
-// Canvas resize listener (Init the ratio)
+// Window resize listener (Init the ratio)
 
-canvas.addEventListener('load', () => {
+window.addEventListener('load', () => {
   updateRatio()
 })
 
-canvas.addEventListener('resize', () => {
+window.addEventListener('resize', () => {
   updateRatio()
 })
 
