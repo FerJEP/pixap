@@ -2,7 +2,12 @@
     This class handles all the tools in the application.
 */
 
-import { canvasDrawing, cxDrawing } from '../../canvas'
+import {
+  canvasDrawing,
+  canvasPreview,
+  cxDrawing,
+  cxPreview,
+} from '../../canvas'
 import { MouseInfo } from './tools/Tool'
 import { AllTools as tools } from './tools/index'
 
@@ -43,7 +48,7 @@ window.addEventListener('resize', () => {
 // Canvas click listeners
 canvasDrawing.addEventListener('mousedown', e => {
   mouse.down = getPositionInCanvas(e.offsetX, e.offsetY)
-  if (currentTool.method) currentTool.method(cxDrawing, mouse)
+  if (currentTool.method) currentTool.method(cxPreview, mouse)
 })
 
 canvasDrawing.addEventListener('mousemove', e => {
@@ -67,7 +72,7 @@ canvasDrawing.addEventListener('mousemove', e => {
       }
     }
 
-    if (currentTool.method) currentTool.method(cxDrawing, mouse)
+    if (currentTool.method) currentTool.method(cxPreview, mouse)
   } else {
     mouse.move = null
   }
@@ -83,12 +88,14 @@ canvasDrawing.addEventListener('mouseleave', e => {
     mouse.move.currentX = x
     mouse.move.currentY = y
 
-    if (currentTool.method) currentTool.method(cxDrawing, mouse)
+    if (currentTool.method) currentTool.method(cxPreview, mouse)
   }
 })
 
 canvasDrawing.addEventListener('mouseup', () => {
   mouse.down = null
+  cxDrawing.drawImage(canvasPreview, 0, 0)
+  cxPreview.clearRect(0, 0, canvasPreview.width, canvasPreview.height)
 })
 
 // Tool container

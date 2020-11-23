@@ -16,14 +16,17 @@ export { canvasDrawing, canvasPreview }
 export const cxDrawing = canvasDrawing.getContext('2d')!
 export const cxPreview = canvasPreview.getContext('2d')!
 
-// cx.ImageSmoothingEnabled = false
-ImageSmoothingFalse()
-checkeredCanvas('#d3d3d3', '#ffffff')
+// Initialization
+updateDefaults()
 
-window.addEventListener('resize', () => {
+window.addEventListener('resize', updateDefaults)
+
+function updateDefaults() {
   ImageSmoothingFalse()
   checkeredCanvas('#d3d3d3', '#ffffff')
-})
+  canvasPreview.width = canvasDrawing.width
+  canvasPreview.height = canvasDrawing.height
+}
 
 function ImageSmoothingFalse() {
   //@ts-ignore
