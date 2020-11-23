@@ -1,4 +1,4 @@
-import { canvas } from '../canvas'
+import { canvasDrawing } from '../canvas'
 
 interface ISettings {
   canvasWidth: number
@@ -52,8 +52,8 @@ function getSettings() {
 }
 
 function applySettings() {
-  canvas.width = settings.canvasWidth
-  canvas.height = settings.canvasHeight
+  canvasDrawing.width = settings.canvasWidth
+  canvasDrawing.height = settings.canvasHeight
   window.dispatchEvent(new Event('resize'))
 }
 

@@ -1,18 +1,18 @@
-import { cx } from '../../../canvas'
+import { cxDrawing } from '../../../canvas'
 import { Tool } from './Tool'
 
 // A color picker tool, relying on the browser color input
 
 const colorPickerElement = Tool.createElement('input') as HTMLInputElement
 colorPickerElement.setAttribute('type', 'color')
-colorPickerElement.value = cx.strokeStyle as string
-colorPickerElement.value = cx.fillStyle as string
+colorPickerElement.value = cxDrawing.strokeStyle as string
+colorPickerElement.value = cxDrawing.fillStyle as string
 
 colorPickerElement.addEventListener('input', e => {
   const { value } = e.currentTarget as HTMLInputElement
 
-  cx.fillStyle = value
-  cx.strokeStyle = value
+  cxDrawing.fillStyle = value
+  cxDrawing.strokeStyle = value
 })
 
 // This tool has no method, it controls itself

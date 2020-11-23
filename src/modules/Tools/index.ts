@@ -2,7 +2,7 @@
     This class handles all the tools in the application.
 */
 
-import { canvas, cx } from '../../canvas'
+import { canvasDrawing, cxDrawing } from '../../canvas'
 import { MouseInfo } from './tools/Tool'
 import { AllTools as tools } from './tools/index'
 
@@ -41,12 +41,12 @@ window.addEventListener('resize', () => {
 })
 
 // Canvas click listeners
-canvas.addEventListener('mousedown', e => {
+canvasDrawing.addEventListener('mousedown', e => {
   mouse.down = getPositionInCanvas(e.offsetX, e.offsetY)
-  if (currentTool.method) currentTool.method(cx, mouse)
+  if (currentTool.method) currentTool.method(cxDrawing, mouse)
 })
 
-canvas.addEventListener('mousemove', e => {
+canvasDrawing.addEventListener('mousemove', e => {
   if (mouse.down) {
     const { x, y } = getPositionInCanvas(e.offsetX, e.offsetY)
 
@@ -67,13 +67,13 @@ canvas.addEventListener('mousemove', e => {
       }
     }
 
-    if (currentTool.method) currentTool.method(cx, mouse)
+    if (currentTool.method) currentTool.method(cxDrawing, mouse)
   } else {
     mouse.move = null
   }
 })
 
-canvas.addEventListener('mouseleave', e => {
+canvasDrawing.addEventListener('mouseleave', e => {
   if (mouse.down && mouse.move) {
     const { x, y } = getPositionInCanvas(e.offsetX, e.offsetY)
 
@@ -83,11 +83,11 @@ canvas.addEventListener('mouseleave', e => {
     mouse.move.currentX = x
     mouse.move.currentY = y
 
-    if (currentTool.method) currentTool.method(cx, mouse)
+    if (currentTool.method) currentTool.method(cxDrawing, mouse)
   }
 })
 
-canvas.addEventListener('mouseup', () => {
+canvasDrawing.addEventListener('mouseup', () => {
   mouse.down = null
 })
 
@@ -112,6 +112,6 @@ function getPositionInCanvas(x: number, y: number) {
 }
 
 function updateRatio() {
-  ratio.width = canvas.width / canvas.offsetWidth
-  ratio.height = canvas.height / canvas.offsetHeight
+  ratio.width = canvasDrawing.width / canvasDrawing.offsetWidth
+  ratio.height = canvasDrawing.height / canvasDrawing.offsetHeight
 }
