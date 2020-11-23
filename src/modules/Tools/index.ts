@@ -1,5 +1,5 @@
 /*
-    This class handles all the tools in the application.
+    This module handles all the tools in the application.
 */
 
 import {
@@ -49,7 +49,7 @@ window.addEventListener('resize', () => {
 // Canvas click listeners
 canvasContainer.addEventListener('mousedown', e => {
   mouse.down = getPositionInCanvas(e.clientX, e.clientY)
-  if (currentTool.method) currentTool.method(cxPreview, mouse)
+  callTool()
 })
 
 canvasContainer.addEventListener('mousemove', e => {
@@ -73,7 +73,7 @@ canvasContainer.addEventListener('mousemove', e => {
       }
     }
 
-    if (currentTool.method) currentTool.method(cxPreview, mouse)
+    callTool()
   } else {
     mouse.move = null
   }
@@ -81,8 +81,10 @@ canvasContainer.addEventListener('mousemove', e => {
 
 canvasContainer.addEventListener('mouseup', () => {
   mouse.down = null
-  cxDrawing.drawImage(canvasPreview, 0, 0)
-  cxPreview.clearRect(0, 0, canvasPreview.width, canvasPreview.height)
+  if (currentTool.name !== 'eraser') {
+    cxDrawing.drawImage(canvasPreview, 0, 0)
+    cxPreview.clearRect(0, 0, canvasPreview.width, canvasPreview.height)
+  }
 })
 
 // Tool container
@@ -94,6 +96,16 @@ container.addEventListener('click', ({ target }) => {
 
   if (toolSelected && toolSelected.method) currentTool = toolSelected
 })
+
+function callTool() {
+  if (currentTool.method) {
+    if (currentTool.name === 'eraser') {
+      currentTool.method(cxDrawing, mouse)
+    } else {
+      currentTool.method(cxPreview, mouse)
+    }
+  }
+}
 
 function getPositionInCanvas(clientX: number, clientY: number) {
   const rect = canvasDrawing.getBoundingClientRect()
