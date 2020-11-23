@@ -3,6 +3,7 @@
 */
 
 import {
+  canvasContainer,
   canvasDrawing,
   canvasPreview,
   cxDrawing,
@@ -46,14 +47,14 @@ window.addEventListener('resize', () => {
 })
 
 // Canvas click listeners
-canvasDrawing.addEventListener('mousedown', e => {
-  mouse.down = getPositionInCanvas(e.offsetX, e.offsetY)
+canvasContainer.addEventListener('mousedown', e => {
+  mouse.down = getPositionInCanvas(e.clientX, e.clientY)
   if (currentTool.method) currentTool.method(cxPreview, mouse)
 })
 
-canvasDrawing.addEventListener('mousemove', e => {
+canvasContainer.addEventListener('mousemove', e => {
   if (mouse.down) {
-    const { x, y } = getPositionInCanvas(e.offsetX, e.offsetY)
+    const { x, y } = getPositionInCanvas(e.clientX, e.clientY)
 
     if (x === mouse.move?.currentX && y === mouse.move.currentY) return
 
@@ -78,21 +79,7 @@ canvasDrawing.addEventListener('mousemove', e => {
   }
 })
 
-canvasDrawing.addEventListener('mouseleave', e => {
-  if (mouse.down && mouse.move) {
-    const { x, y } = getPositionInCanvas(e.offsetX, e.offsetY)
-
-    mouse.move.lastX = mouse.move.currentX
-    mouse.move.lastY = mouse.move.currentY
-
-    mouse.move.currentX = x
-    mouse.move.currentY = y
-
-    if (currentTool.method) currentTool.method(cxPreview, mouse)
-  }
-})
-
-canvasDrawing.addEventListener('mouseup', () => {
+canvasContainer.addEventListener('mouseup', () => {
   mouse.down = null
   cxDrawing.drawImage(canvasPreview, 0, 0)
   cxPreview.clearRect(0, 0, canvasPreview.width, canvasPreview.height)
@@ -108,9 +95,14 @@ container.addEventListener('click', ({ target }) => {
   if (toolSelected && toolSelected.method) currentTool = toolSelected
 })
 
-function getPositionInCanvas(x: number, y: number) {
-  const posX = Math.floor(x * ratio.width)
-  const posY = Math.floor(y * ratio.height)
+function getPositionInCanvas(clientX: number, clientY: number) {
+  const rect = canvasDrawing.getBoundingClientRect()
+
+  clientX -= rect.x
+  clientY -= rect.y
+
+  const posX = Math.floor(clientX * ratio.width)
+  const posY = Math.floor(clientY * ratio.height)
 
   return {
     x: posX,

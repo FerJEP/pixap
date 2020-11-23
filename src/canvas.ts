@@ -1,3 +1,7 @@
+const canvasContainer = document.getElementById(
+  'canvas-container'
+) as HTMLElement
+
 const canvasDrawing = document.getElementById(
   'canvas-drawing'
 ) as HTMLCanvasElement
@@ -8,10 +12,10 @@ const canvasPreview = document.getElementById(
   'canvas-preview'
 ) as HTMLCanvasElement
 
-if (!canvasDrawing || !canvasBackground || !canvasPreview)
+if (!canvasContainer || !canvasDrawing || !canvasBackground || !canvasPreview)
   throw new Error('Invalid canvas elements')
 
-export { canvasDrawing, canvasPreview }
+export { canvasContainer, canvasDrawing, canvasPreview }
 
 export const cxDrawing = canvasDrawing.getContext('2d')!
 export const cxPreview = canvasPreview.getContext('2d')!
