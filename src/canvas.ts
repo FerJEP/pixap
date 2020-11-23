@@ -2,10 +2,17 @@ const canvas = document.getElementById('canvas-drawing') as HTMLCanvasElement
 const canvasBackground = document.getElementById(
   'canvas-background'
 ) as HTMLCanvasElement
+const canvasPreview = document.getElementById(
+  'canvas-preview'
+) as HTMLCanvasElement
 
-if (!canvas || !canvasBackground) throw new Error('Invalid canvas elements')
+if (!canvas || !canvasBackground || !canvasPreview)
+  throw new Error('Invalid canvas elements')
 
-const cx = canvas.getContext('2d')!
+export { canvas, canvasPreview }
+
+export const cx = canvas.getContext('2d')!
+export const cxPreview = canvasPreview.getContext('2d')!
 
 // cx.ImageSmoothingEnabled = false
 ImageSmoothingFalse()
@@ -15,8 +22,6 @@ window.addEventListener('resize', () => {
   ImageSmoothingFalse()
   checkeredCanvas('#d3d3d3', '#ffffff')
 })
-
-export { canvas, cx }
 
 function ImageSmoothingFalse() {
   //@ts-ignore

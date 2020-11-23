@@ -36,6 +36,14 @@
   z-index: 20;
 }
 
+#canvas-preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  pointer-events: none;
+}
+
 .rendering-pixeled {
   image-rendering: -moz-crisp-edges;
   image-rendering: -moz-crisp-edges;
