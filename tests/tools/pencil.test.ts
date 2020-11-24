@@ -1,4 +1,4 @@
-import { pencil } from '../../src/tools/pencil'
+import { pencil } from '../../src/modules/Tools/tools/pencil'
 
 const canvas = document.createElement('canvas')
 const cx = canvas.getContext('2d')!

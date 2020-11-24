@@ -1,4 +1,4 @@
-import { eraser } from '../../src/tools/eraser'
+import { eraser } from '../../src/modules/Tools/tools/eraser'
 
 const canvas = document.createElement('canvas')
 const cx = canvas.getContext('2d')!
