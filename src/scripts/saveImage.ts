@@ -1,9 +1,7 @@
-import { canvasDrawing } from '../canvas'
-
-export function saveImage(filename: string = 'Untiled') {
+export function saveImage(dataURL: string, filename: string) {
   const saveLink = document.createElement('a')
 
-  saveLink.href = canvasDrawing.toDataURL()
+  saveLink.href = dataURL
   saveLink.download = filename + '.png'
   saveLink.click()
 }

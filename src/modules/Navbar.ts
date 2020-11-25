@@ -1,3 +1,4 @@
+import { canvasDrawing } from '../canvas'
 import { saveImage } from '../scripts/saveImage'
 
 // Navbar mobile
@@ -16,7 +17,9 @@ const fileNameInput = document.getElementById(
   'filename-input'
 ) as HTMLInputElement
 
-saveBtn?.addEventListener('click', () => saveImage(fileNameInput.value))
+saveBtn?.addEventListener('click', () =>
+  saveImage(canvasDrawing.toDataURL(), fileNameInput.value)
+)
 
 // Settings menu button
 const settingsBtn = document.getElementById('settings-btn')
