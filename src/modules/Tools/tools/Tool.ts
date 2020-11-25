@@ -23,7 +23,9 @@ export class Tool {
     public name: string,
     public element: HTMLElement,
     public method: ToolMethod | null
-  ) {}
+  ) {
+    this.element.setAttribute('name', this.name)
+  }
 
   static createElement(tagName: string, iconData?: string, inlineIcon = false) {
     const element = document.createElement(tagName) as HTMLElement
