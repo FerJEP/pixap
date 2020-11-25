@@ -20,6 +20,10 @@
     pointer-events: none;
   }
 
+  &[name='circle'] {
+    font-size: 45px;
+  }
+
   &:last-child {
     margin: 0;
   }
