@@ -14,7 +14,7 @@ test('Eraser: Initialization', () => {
 })
 
 test('Eraser: Single Point', () => {
-  //First point but draw
+  // Called with no cords
   eraser.method!(cx, { down: null })
 
   expect(spyClearRect).toBeCalledTimes(0)

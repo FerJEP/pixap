@@ -34,6 +34,8 @@ const squareMethod: ToolMethod = (cx, mouse) => {
     } else {
       // else, it's finally a square
       cx.strokeRect(mouse.down.x + 0.5, mouse.down.y + 0.5, width, height)
+      // +0.5 because of some problems with how pixels are drawn.
+      // Basically, it is to avoid "antialiasing"
     }
   } else if (mouse.down) {
     //if mouse hasn't moved yet

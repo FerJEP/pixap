@@ -14,7 +14,7 @@ test('Pencil: Initialization', () => {
 })
 
 test('Pencil: Single Point', () => {
-  //First point but draw
+  // Called with no cords
   pencil.method!(cx, { down: null })
 
   expect(spyFillRect).toBeCalledTimes(0)
