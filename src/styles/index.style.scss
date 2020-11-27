@@ -59,4 +59,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  // Prevent that ugly blue box when it's clicked on mobile
+  -webkit-tap-highlight-color: transparent;
 }
