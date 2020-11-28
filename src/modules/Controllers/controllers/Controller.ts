@@ -1,18 +1,18 @@
+import hotkeys from 'hotkeys-js'
 import { getIcon } from '../../../scripts/getIcon'
-
-export interface Shortcut {
-  ctrlKey: boolean
-  key: string
-}
 
 export class Controller {
   constructor(
     public name: string,
     public element: HTMLElement,
     public action: Function,
-    public shortcut: Shortcut
+    public shortcut: string
   ) {
     this.element.setAttribute('name', this.name)
+    hotkeys(shortcut, e => {
+      e.preventDefault()
+      this.action()
+    })
   }
 
   static createElement(iconData: string, inlineIcon = false) {

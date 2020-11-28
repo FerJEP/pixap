@@ -1,14 +1,8 @@
-import { canvasContainer } from '../../canvas'
 import { controllers } from './controllers/index'
 
 const container = document.getElementById('controllers-container')
 
 if (!container) throw new Error('Invalid Controls container')
-
-// canvasContainer shortcuts
-canvasContainer.tabIndex = 0
-
-canvasContainer.addEventListener('keydown', () => {})
 
 // Controls container
 container.append(...controllers.map(controller => controller.element))

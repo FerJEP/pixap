@@ -19,4 +19,4 @@ const circleMethod: ToolMethod = (cx, mouse) => {
   }
 }
 
-export const circle = new Tool('circle', circleElement, circleMethod)
+export const circle = new Tool('circle', circleElement, circleMethod, 'c')

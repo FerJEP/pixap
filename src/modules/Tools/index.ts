@@ -12,6 +12,7 @@ import {
 import { MouseInfo } from './tools/Tool'
 import { AllTools as tools } from './tools/index'
 import { canvasState } from '../../canvasState'
+import hotkeys from 'hotkeys-js'
 
 interface IRatio {
   width: number
@@ -97,6 +98,22 @@ container.addEventListener('click', ({ target }) => {
   const toolSelected = tools.find(tool => tool.element === target)
 
   if (toolSelected && toolSelected.method) currentTool = toolSelected
+})
+
+// Shortcuts
+
+const keys = tools
+  .reduce((keys, tool) => {
+    if (tool.shortcut) return keys.concat(tool.shortcut)
+    return keys
+  }, <Array<string>>[])
+  .join()
+
+// @ts-ignore
+hotkeys(keys, (e, handler) => {
+  const tool = tools.find(tool => tool.shortcut === handler.key)
+
+  if (tool && tool.method) currentTool = tool
 })
 
 function callTool() {

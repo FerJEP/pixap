@@ -43,4 +43,4 @@ const squareMethod: ToolMethod = (cx, mouse) => {
     cx.fillRect(mouse.down.x, mouse.down.y, 1, 1)
   }
 }
-export const square = new Tool('square', squareElement, squareMethod)
+export const square = new Tool('square', squareElement, squareMethod, 's')

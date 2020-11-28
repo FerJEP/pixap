@@ -18,4 +18,4 @@ const pencilMethod: ToolMethod = (cx, mouse) => {
   }
 }
 
-export const pencil = new Tool('pencil', pencilElement, pencilMethod)
+export const pencil = new Tool('pencil', pencilElement, pencilMethod, 'p')

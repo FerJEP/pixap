@@ -20,4 +20,4 @@ const eraserMethod: ToolMethod = (cx, mouse) => {
   }
 }
 
-export const eraser = new Tool('eraser', eraserElement, eraserMethod)
+export const eraser = new Tool('eraser', eraserElement, eraserMethod, 'e')

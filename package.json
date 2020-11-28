@@ -28,6 +28,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.4.0"
+    "@reduxjs/toolkit": "^1.4.0",
+    "hotkeys-js": "^3.8.1"
   }
 }

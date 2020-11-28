@@ -22,7 +22,8 @@ export class Tool {
   constructor(
     public name: string,
     public element: HTMLElement,
-    public method: ToolMethod | null
+    public method: ToolMethod | null,
+    public shortcut?: string
   ) {
     this.element.setAttribute('name', this.name)
   }
