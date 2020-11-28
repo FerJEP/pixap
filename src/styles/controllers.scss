@@ -8,11 +8,23 @@
 .controller {
   border: 1px solid white;
   border-radius: 5px;
+
+  .icon-text {
+    right: 110%;
+  }
 }
 
 @media all and (max-width: 768px) {
   .controllers {
     border-radius: 0;
     transform: none;
+  }
+
+  .controller .icon-text {
+    right: auto;
+
+    bottom: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }

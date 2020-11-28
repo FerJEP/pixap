@@ -6,7 +6,7 @@
 }
 
 .tool {
-  &[name='circle'] {
+  &[name='circle'] svg {
     font-size: 45px;
   }
 
@@ -14,11 +14,21 @@
     background: rgb(0, 140, 255);
     border-radius: 10px;
   }
+
+  .icon-text {
+    left: 110%;
+  }
 }
 
 @media all and (max-width: 768px) {
   .tools {
     border-radius: 0;
     transform: none;
+  }
+
+  .tool .icon-text {
+    bottom: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
