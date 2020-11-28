@@ -9,6 +9,13 @@ export class Controller {
     public shortcut: string
   ) {
     this.element.setAttribute('name', this.name)
+
+    const hoverText = document.createElement('div')
+    hoverText.classList.add('icon-text')
+    hoverText.textContent = `${this.name} (${this.shortcut})`
+
+    this.element.appendChild(hoverText)
+
     hotkeys(shortcut, e => {
       e.preventDefault()
       this.action()
