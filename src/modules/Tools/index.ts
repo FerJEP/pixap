@@ -3,120 +3,32 @@
 */
 
 import {
-  canvasContainer,
   canvasDrawing,
   canvasPreview,
   cxDrawing,
   cxPreview,
 } from '../../canvas'
-import { MouseInfo } from './tools/Tool'
+import { MouseInfo, Tool } from './tools/Tool'
 import { AllTools as tools } from './tools/index'
-import { canvasState } from '../../canvasState'
-import hotkeys from 'hotkeys-js'
-
-interface IRatio {
-  width: number
-  height: number
-}
-
-// Dom element
-const container = document.getElementById('tools-container')
-
-if (!container) throw new Error('Invalid tools container')
+import './listeners'
 
 // Declarations
-const ratio: IRatio = {
+export const ratio = {
   height: 0,
   width: 0,
 }
-const mouse: MouseInfo = {
+export const mouse: MouseInfo = {
   down: null,
   move: null,
 }
-let currentTool = tools[0]
+
+let currentTool: Tool
 
 // Initialization
 updateRatio()
+selectTool('pencil')
 
-// Window resize listener (Init the ratio)
-
-window.addEventListener('load', () => {
-  updateRatio()
-})
-
-window.addEventListener('resize', () => {
-  updateRatio()
-})
-
-// Canvas click listeners
-canvasContainer.addEventListener('mousedown', e => {
-  mouse.down = getPositionInCanvas(e.clientX, e.clientY)
-  canvasState.setReturnPoint()
-  callTool()
-})
-
-canvasContainer.addEventListener('mousemove', e => {
-  if (mouse.down) {
-    const { x, y } = getPositionInCanvas(e.clientX, e.clientY)
-
-    if (x === mouse.move?.currentX && y === mouse.move.currentY) return
-
-    if (mouse.move) {
-      mouse.move.lastX = mouse.move.currentX
-      mouse.move.lastY = mouse.move.currentY
-
-      mouse.move.currentX = x
-      mouse.move.currentY = y
-    } else {
-      mouse.move = {
-        lastX: mouse.down.x,
-        lastY: mouse.down.y,
-        currentX: x,
-        currentY: y,
-      }
-    }
-
-    callTool()
-  } else {
-    mouse.move = null
-  }
-})
-
-canvasContainer.addEventListener('mouseup', () => {
-  mouse.down = null
-  if (currentTool.name !== 'eraser') {
-    cxDrawing.drawImage(canvasPreview, 0, 0)
-    cxPreview.clearRect(0, 0, canvasPreview.width, canvasPreview.height)
-  }
-})
-
-// Tool container
-
-container.append(...tools.map(tool => tool.element))
-
-container.addEventListener('click', ({ target }) => {
-  const toolSelected = tools.find(tool => tool.element === target)
-
-  if (toolSelected && toolSelected.method) currentTool = toolSelected
-})
-
-// Shortcuts
-
-const keys = tools
-  .reduce((keys, tool) => {
-    if (tool.shortcut) return keys.concat(tool.shortcut)
-    return keys
-  }, <Array<string>>[])
-  .join()
-
-// @ts-ignore
-hotkeys(keys, (e, handler) => {
-  const tool = tools.find(tool => tool.shortcut === handler.key)
-
-  if (tool && tool.method) currentTool = tool
-})
-
-function callTool() {
+export function callTool() {
   if (currentTool.method) {
     if (currentTool.name === 'eraser') {
       currentTool.method(cxDrawing, mouse)
@@ -126,7 +38,7 @@ function callTool() {
   }
 }
 
-function getPositionInCanvas(clientX: number, clientY: number) {
+export function getPositionInCanvas(clientX: number, clientY: number) {
   const rect = canvasDrawing.getBoundingClientRect()
 
   clientX -= rect.x
@@ -141,7 +53,27 @@ function getPositionInCanvas(clientX: number, clientY: number) {
   }
 }
 
-function updateRatio() {
+export function updateRatio() {
   ratio.width = canvasDrawing.width / canvasDrawing.offsetWidth
   ratio.height = canvasDrawing.height / canvasDrawing.offsetHeight
+}
+
+export function selectTool(name: string) {
+  const tool = tools.find(tool => tool.name === name)
+
+  if (!tool || !tool.method) return
+
+  if (currentTool) {
+    currentTool.element.classList.remove('selected')
+  }
+
+  currentTool = tool
+  currentTool.element.classList.add('selected')
+}
+
+export function previewToDrawing() {
+  if (currentTool.name !== 'eraser') {
+    cxDrawing.drawImage(canvasPreview, 0, 0)
+    cxPreview.clearRect(0, 0, canvasPreview.width, canvasPreview.height)
+  }
 }
