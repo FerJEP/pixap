@@ -1,7 +1,7 @@
 import { lineAlgo } from '../../../scripts/lineAlgo'
 import { Tool, ToolMethod } from './Tool'
 
-const squareElement = Tool.createElement('button', 'bx-bx-rectangle')
+const squareElement = Tool.createElement('bx-bx-rectangle')
 const squareMethod: ToolMethod = (cx, mouse) => {
   if (mouse.move && mouse.down) {
     const width = mouse.move.currentX - mouse.down.x

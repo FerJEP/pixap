@@ -1,10 +1,7 @@
 import { lineAlgo } from '../../../scripts/lineAlgo'
 import { Tool, ToolMethod } from './Tool'
 
-const pencilElement = Tool.createElement(
-  'button',
-  'bx:bxs-pencil'
-) as HTMLButtonElement
+const pencilElement = Tool.createElement('bx:bxs-pencil') as HTMLButtonElement
 
 const pencilMethod: ToolMethod = (cx, mouse) => {
   if (mouse.move) {

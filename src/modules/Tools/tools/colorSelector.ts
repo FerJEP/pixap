@@ -3,18 +3,23 @@ import { Tool } from './Tool'
 
 // A color picker tool, relying on the browser color input
 
-const colorPickerElement = Tool.createElement('input') as HTMLInputElement
-colorPickerElement.setAttribute('type', 'color')
-colorPickerElement.value = cxPreview.strokeStyle as string
-colorPickerElement.value = cxPreview.fillStyle as string
+const colorPickerElement = document.createElement('div')
+const inputColor = document.createElement('input')
 
-colorPickerElement.addEventListener('input', e => {
+colorPickerElement.classList.add('icon', 'tool')
+
+inputColor.setAttribute('type', 'color')
+cxPreview.strokeStyle = inputColor.value
+cxPreview.fillStyle = inputColor.value
+
+colorPickerElement.appendChild(inputColor)
+
+// This tool has no method, it controls itself
+inputColor.addEventListener('input', e => {
   const { value } = e.currentTarget as HTMLInputElement
 
   cxPreview.fillStyle = value
   cxPreview.strokeStyle = value
 })
 
-// This tool has no method, it controls itself
-
-export const colorPicker = new Tool('colorPicker', colorPickerElement, null)
+export const colorPicker = new Tool('color picker', colorPickerElement, null)

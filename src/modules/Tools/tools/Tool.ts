@@ -26,12 +26,22 @@ export class Tool {
     public shortcut?: string
   ) {
     this.element.setAttribute('name', this.name)
+
+    const hoverText = document.createElement('div')
+    hoverText.classList.add('icon-text')
+    hoverText.textContent = `${this.name} tool`
+    if (shortcut) hoverText.textContent += ` (${this.shortcut})`
+
+    this.element.appendChild(hoverText)
   }
 
-  static createElement(tagName: string, iconData?: string, inlineIcon = false) {
-    const element = document.createElement(tagName) as HTMLElement
+  static createElement(iconData: string) {
+    const element = document.createElement('button')
+
     element.classList.add('icon', 'tool')
-    if (iconData) element.appendChild(getIcon(iconData, inlineIcon))
+
+    element.appendChild(getIcon(iconData))
+
     return element
   }
 }

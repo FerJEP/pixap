@@ -3,10 +3,7 @@ import { Tool, ToolMethod } from './Tool'
 
 // An eraser tool
 
-const eraserElement = Tool.createElement(
-  'button',
-  'mdi-eraser'
-) as HTMLButtonElement
+const eraserElement = Tool.createElement('mdi-eraser') as HTMLButtonElement
 
 const eraserMethod: ToolMethod = (cx, mouse) => {
   if (mouse.move) {

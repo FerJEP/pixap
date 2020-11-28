@@ -1,7 +1,7 @@
 import { circleAlgo } from '../../../scripts/circleAlgo'
 import { Tool, ToolMethod } from './Tool'
 
-const circleElement = Tool.createElement('button', 'bi-circle')
+const circleElement = Tool.createElement('bi-circle')
 const circleMethod: ToolMethod = (cx, mouse) => {
   if (mouse.move && mouse.down) {
     const xd = mouse.move.currentX - mouse.down.x
