@@ -59,6 +59,28 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
+.panel {
+  background: var(--mainColor);
+  width: var(--headerHeight);
+  padding: 1rem 0;
+  position: absolute;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & > * {
+    margin-bottom: 1rem;
+    &:last-child {
+      margin: 0;
+    }
+
+    & * {
+      pointer-events: none;
+    }
+  }
+}
+
 @import './header.scss';
 @import './body.scss';
 @import './tools.scss';
