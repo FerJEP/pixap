@@ -16,16 +16,16 @@
 .tool {
   margin-bottom: 1rem;
 
+  &:last-child {
+    margin: 0;
+  }
+
   & > * {
     pointer-events: none;
   }
 
   &[name='circle'] {
     font-size: 45px;
-  }
-
-  &:last-child {
-    margin: 0;
   }
 }
 

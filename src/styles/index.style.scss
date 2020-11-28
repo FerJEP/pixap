@@ -6,11 +6,6 @@
 
 // Global Style
 
-@import './header.scss';
-@import './body.scss';
-@import './tools.scss';
-@import './settings.scss';
-
 * {
   margin: 0;
   padding: 0;
@@ -63,3 +58,9 @@ button {
   // Prevent that ugly blue box when it's clicked on mobile
   -webkit-tap-highlight-color: transparent;
 }
+
+@import './header.scss';
+@import './body.scss';
+@import './tools.scss';
+@import './settings.scss';
+@import './controllers.scss';

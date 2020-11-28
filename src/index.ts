@@ -4,4 +4,5 @@ import './scripts/saveImage' //Save image handler
 //Modules
 import './modules/Settings'
 import './modules/Tools/index'
+import './modules/Controllers'
 import './modules/Navbar' //Navbar mobile handler
