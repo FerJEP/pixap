@@ -1,7 +1,6 @@
 /*
     In here goes all the styles imported, and global styles.
     Then, this file is imported to the app index.js
-
 */
 
 // Global Style
@@ -33,6 +32,10 @@ input {
 a {
   display: block;
   text-decoration: none;
+}
+
+svg {
+  pointer-events: none;
 }
 
 button {
@@ -69,14 +72,29 @@ button {
   flex-direction: column;
   align-items: center;
 
-  & > * {
+  & > *:not(:last-child) {
     margin-bottom: 1rem;
-    &:last-child {
-      margin: 0;
+  }
+}
+
+@media all and (max-width: 768px) {
+  .panel {
+    position: static;
+    width: auto;
+    height: var(--headerHeight);
+    padding: 5px 1rem;
+    flex-direction: row;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid rgb(0, 0, 0);
     }
 
-    & * {
-      pointer-events: none;
+    & > *:not(:last-child) {
+      margin-bottom: 0;
+    }
+
+    & > * {
+      margin: 0 auto;
     }
   }
 }
