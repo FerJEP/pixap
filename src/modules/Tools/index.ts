@@ -11,6 +11,7 @@ import {
 } from '../../canvas'
 import { MouseInfo } from './tools/Tool'
 import { AllTools as tools } from './tools/index'
+import { canvasState } from '../../canvasState'
 
 interface IRatio {
   width: number
@@ -49,6 +50,7 @@ window.addEventListener('resize', () => {
 // Canvas click listeners
 canvasContainer.addEventListener('mousedown', e => {
   mouse.down = getPositionInCanvas(e.clientX, e.clientY)
+  canvasState.setReturnPoint()
   callTool()
 })
 
