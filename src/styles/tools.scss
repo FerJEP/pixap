@@ -9,6 +9,11 @@
   &[name='circle'] {
     font-size: 45px;
   }
+
+  &.selected {
+    background: rgb(0, 140, 255);
+    border-radius: 10px;
+  }
 }
 
 @media all and (max-width: 768px) {
