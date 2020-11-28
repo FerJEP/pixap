@@ -3,7 +3,7 @@ import { Tool } from './Tool'
 
 // A color picker tool, relying on the browser color input
 
-const colorPickerElement = document.createElement('div')
+const colorPickerElement = document.createElement('button')
 const inputColor = document.createElement('input')
 
 colorPickerElement.classList.add('icon', 'tool')
