@@ -51,8 +51,12 @@
     font-size: 47px;
   }
 
-  .icon + .icon {
-    margin-left: 1rem;
+  .icon-text {
+    top: 105%;
+  }
+
+  .icon:not(:last-child) {
+    margin-right: 1rem;
   }
 }
 
@@ -95,8 +99,21 @@
       margin-bottom: 1rem;
     }
 
-    .icon + .icon {
-      margin: 0;
+    .icon {
+      width: auto;
+
+      &-text {
+        margin-left: 10px;
+        display: block;
+        position: static;
+        border: none;
+        background: none;
+      }
+    }
+
+    .icon:not(:last-child) {
+      margin-right: 0;
+      margin-bottom: 1rem;
     }
   }
 }
