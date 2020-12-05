@@ -19,7 +19,7 @@ test('Circle Algorihtm: 3 radius', () => {
   expect(points).toEqual(r3Points)
 })
 
-test.only('Circle Algorihtm: 10 radius', () => {
+test('Circle Algorihtm: 10 radius', () => {
   const points: Array<number[]> = []
   circleAlgo(0, 0, 10, (x, y) => {
     points.push([x, y])
