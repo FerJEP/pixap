@@ -1,8 +1,8 @@
-import hotkeys from 'hotkeys-js'
 import { settingsContainer } from './Settings'
 import { canvasDrawing } from '../canvas'
 import { ButtonIcon, insertButtonText } from '../scripts/icon'
 import { saveImage } from '../scripts/saveImage'
+import { addShortcut } from '../shortcuts'
 
 // Navbar mobile
 const navbarBtn = document.getElementById('navbar-btn')
@@ -33,7 +33,7 @@ insertButtonText(saveBtn, `Save (${saveBtnKey})`)
 
 saveBtn.addEventListener('click', saveBtnHandler)
 
-hotkeys(saveBtnKey, saveBtnHandler)
+addShortcut('saveBtn', saveBtnKey, saveBtnHandler)
 
 // Settings menu button
 const settingsBtn = document.getElementById('settings-btn') as ButtonIcon

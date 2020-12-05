@@ -1,6 +1,6 @@
 // Window resize listener (Init the ratio)
 
-import hotkeys from 'hotkeys-js'
+import { addShortcut } from '../../shortcuts'
 import { canvasContainer } from '../../canvas'
 import { canvasState } from '../../canvasState'
 import {
@@ -78,18 +78,10 @@ toolsContainer!.addEventListener('click', ({ target }) => {
   }
 })
 
-// hotkeys
+// addShortcut
 
-const keys = tools
-  .reduce((keys, tool) => {
-    if (tool.shortcut) return keys.concat(tool.shortcut)
-    return keys
-  }, <Array<string>>[])
-  .join()
-
-//@ts-ignore
-hotkeys(keys, (e, handler) => {
-  const tool = tools.find(tool => tool.shortcut === handler.key)
-
-  if (tool) selectTool(tool.name)
+tools.forEach(tool => {
+  if (tool.shortcut) {
+    addShortcut(tool.name, tool.shortcut, () => selectTool(tool.name))
+  }
 })

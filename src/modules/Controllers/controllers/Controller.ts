@@ -1,9 +1,9 @@
-import hotkeys from 'hotkeys-js'
 import {
   ButtonIcon,
   createButtonIcon,
   insertButtonText,
 } from '../../../scripts/icon'
+import { addShortcut } from '../../../shortcuts'
 
 export class Controller {
   constructor(
@@ -16,7 +16,7 @@ export class Controller {
 
     insertButtonText(this.element, `${this.name} (${this.shortcut})`)
 
-    hotkeys(shortcut, e => {
+    addShortcut(name, shortcut, e => {
       e.preventDefault()
       this.action()
     })
