@@ -47,17 +47,14 @@ button {
   background: none;
   outline: none;
   border: none;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   // Prevent that ugly blue box when it's clicked on mobile
   -webkit-tap-highlight-color: transparent;
 
   svg {
-    font-size: 50px;
+    font-size: 40px;
     pointer-events: none;
   }
 
