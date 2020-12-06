@@ -2,6 +2,8 @@ const canvasContainer = document.getElementById(
   'canvas-container'
 ) as HTMLElement
 
+const canvasLayers = document.getElementById('canvas-layers-container')
+
 const canvasDrawing = document.getElementById(
   'canvas-drawing'
 ) as HTMLCanvasElement
@@ -12,13 +14,21 @@ const canvasPreview = document.getElementById(
   'canvas-preview'
 ) as HTMLCanvasElement
 
-if (!canvasContainer || !canvasDrawing || !canvasBackground || !canvasPreview)
+if (
+  !canvasContainer ||
+  !canvasLayers ||
+  !canvasDrawing ||
+  !canvasBackground ||
+  !canvasPreview
+)
   throw new Error('Invalid canvas elements')
 
 export { canvasContainer, canvasDrawing, canvasPreview }
 
 export const cxDrawing = canvasDrawing.getContext('2d')!
 export const cxPreview = canvasPreview.getContext('2d')!
+
+let zoomStep = 100
 
 // Initialization
 updateDefaults()
@@ -58,3 +68,17 @@ function checkeredCanvas(color1: string, color2: string) {
     }
   }
 }
+
+document.addEventListener('wheel', e => {
+  e.preventDefault()
+
+  if (e.deltaY < 0) {
+    canvasLayers.style.width = canvasLayers.clientWidth + zoomStep + 'px'
+    canvasLayers.style.height = canvasLayers.clientHeight + zoomStep + 'px'
+  } else {
+    canvasLayers.style.width = canvasLayers.clientWidth - zoomStep + 'px'
+    canvasLayers.style.height = canvasLayers.clientHeight - zoomStep + 'px'
+  }
+
+  window.dispatchEvent(new Event('resize'))
+})

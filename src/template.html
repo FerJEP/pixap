@@ -86,9 +86,11 @@
       </div>
       <main class="app-body">
         <div id="canvas-container">
-          <canvas class="rendering-pixeled" id="canvas-background"></canvas>
-          <canvas class="rendering-pixeled" id="canvas-drawing"></canvas>
-          <canvas class="rendering-pixeled" id="canvas-preview"></canvas>
+          <div id="canvas-layers-container">
+            <canvas class="rendering-pixeled" id="canvas-background"></canvas>
+            <canvas class="rendering-pixeled" id="canvas-drawing"></canvas>
+            <canvas class="rendering-pixeled" id="canvas-preview"></canvas>
+          </div>
         </div>
         <div class="panel tools" id="tools-container"></div>
         <div class="panel controllers" id="controllers-container"></div>
