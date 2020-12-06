@@ -1,4 +1,4 @@
-import { cxPreview } from '../../../canvas'
+import { canvasDrawing, cxPreview } from '../../../canvas'
 import { Tool } from './Tool'
 
 // A color picker tool, relying on the browser color input
@@ -22,7 +22,7 @@ inputColor.addEventListener('input', e => {
   cxPreview.strokeStyle = value
 })
 
-window.addEventListener('resize', () => {
+canvasDrawing.addEventListener('customResize', () => {
   cxPreview.strokeStyle = inputColor.value
   cxPreview.fillStyle = inputColor.value
 })

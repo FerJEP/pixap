@@ -1,7 +1,5 @@
-// Window resize listener (Init the ratio)
-
 import { addShortcut } from '../../shortcuts'
-import { canvasContainer } from '../../canvas'
+import { canvasContainer, canvasDrawing, layersContainer } from '../../canvas'
 import { canvasState } from '../../canvasState'
 import {
   callTool,
@@ -18,14 +16,10 @@ const toolsContainer = document.getElementById('tools-container')
 
 if (!toolsContainer) throw new Error('Invalid tools container')
 
-// Window listeners
-window.addEventListener('load', () => {
-  updateRatio()
-})
-
-window.addEventListener('resize', () => {
-  updateRatio()
-})
+// UpdateRatio listeners
+window.addEventListener('load', updateRatio)
+layersContainer!.addEventListener('customResize', () => updateRatio())
+canvasDrawing!.addEventListener('customResize', () => updateRatio())
 
 // Canvas click listeners
 canvasContainer.addEventListener('mousedown', e => {

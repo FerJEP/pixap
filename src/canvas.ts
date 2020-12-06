@@ -2,7 +2,7 @@ const canvasContainer = document.getElementById(
   'canvas-container'
 ) as HTMLElement
 
-const canvasLayers = document.getElementById('canvas-layers-container')
+const layersContainer = document.getElementById('canvas-layers-container')
 
 const canvasDrawing = document.getElementById(
   'canvas-drawing'
@@ -16,24 +16,27 @@ const canvasPreview = document.getElementById(
 
 if (
   !canvasContainer ||
-  !canvasLayers ||
+  !layersContainer ||
   !canvasDrawing ||
   !canvasBackground ||
   !canvasPreview
 )
   throw new Error('Invalid canvas elements')
 
-export { canvasContainer, canvasDrawing, canvasPreview }
+export { canvasContainer, layersContainer, canvasDrawing, canvasPreview }
 
 export const cxDrawing = canvasDrawing.getContext('2d')!
 export const cxPreview = canvasPreview.getContext('2d')!
 
+// In pixels
 let zoomStep = 100
 
 // Initialization
 updateDefaults()
+setCanvasDrawingSize(16, 16)
+setLayersContainerSize(500)
 
-window.addEventListener('resize', updateDefaults)
+canvasDrawing.addEventListener('customResize', updateDefaults)
 
 function updateDefaults() {
   ImageSmoothingFalse()
@@ -41,6 +44,15 @@ function updateDefaults() {
   canvasPreview.width = canvasDrawing.width
   canvasPreview.height = canvasDrawing.height
 }
+
+document.addEventListener('wheel', e => {
+  e.preventDefault()
+
+  const newSize =
+    layersContainer.clientWidth + (e.deltaY < 0 ? zoomStep : -zoomStep)
+
+  setLayersContainerSize(newSize)
+})
 
 function ImageSmoothingFalse() {
   //@ts-ignore
@@ -69,16 +81,20 @@ function checkeredCanvas(color1: string, color2: string) {
   }
 }
 
-document.addEventListener('wheel', e => {
-  e.preventDefault()
+export function getZoomStep() {
+  return zoomStep
+}
 
-  if (e.deltaY < 0) {
-    canvasLayers.style.width = canvasLayers.clientWidth + zoomStep + 'px'
-    canvasLayers.style.height = canvasLayers.clientHeight + zoomStep + 'px'
-  } else {
-    canvasLayers.style.width = canvasLayers.clientWidth - zoomStep + 'px'
-    canvasLayers.style.height = canvasLayers.clientHeight - zoomStep + 'px'
-  }
+export function setLayersContainerSize(width: number) {
+  const heightRatio = canvasDrawing.height / canvasDrawing.width
 
-  window.dispatchEvent(new Event('resize'))
-})
+  layersContainer!.style.width = width + 'px'
+  layersContainer!.style.height = width * heightRatio + 'px'
+  layersContainer?.dispatchEvent(new Event('customResize'))
+}
+
+export function setCanvasDrawingSize(width: number, height: number) {
+  canvasDrawing.width = width
+  canvasDrawing.height = height
+  canvasDrawing?.dispatchEvent(new Event('customResize'))
+}
