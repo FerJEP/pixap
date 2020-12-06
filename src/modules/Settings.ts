@@ -15,12 +15,12 @@ if (!settingsForm || !settingsCloseBtn || !settingsContainer)
 
 // Declarations
 const settings: ISettings = {
-  canvasWidth: 16,
-  canvasHeight: 16,
+  canvasWidth: canvasDrawing.width,
+  canvasHeight: canvasDrawing.height,
 }
 
 //Initialization
-loadSettingsToForm()
+initInputValues()
 applySettings()
 
 // Form's listener
@@ -33,7 +33,7 @@ settingsForm.addEventListener('submit', e => {
 // Close button listener
 settingsCloseBtn.addEventListener('click', () => {
   settingsContainer.classList.remove('show')
-  loadSettingsToForm()
+  initInputValues()
 })
 
 // Methods
@@ -54,10 +54,10 @@ function getSettings() {
 function applySettings() {
   canvasDrawing.width = settings.canvasWidth
   canvasDrawing.height = settings.canvasHeight
-  window.dispatchEvent(new Event('resize'))
+  canvasDrawing.dispatchEvent(new Event('customResize'))
 }
 
-function loadSettingsToForm() {
+function initInputValues() {
   const keys = Object.keys(settings)
 
   for (let i = 0; i < keys.length; i++) {
