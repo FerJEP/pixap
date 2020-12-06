@@ -22,4 +22,9 @@ inputColor.addEventListener('input', e => {
   cxPreview.strokeStyle = value
 })
 
+window.addEventListener('resize', () => {
+  cxPreview.strokeStyle = inputColor.value
+  cxPreview.fillStyle = inputColor.value
+})
+
 export const colorPicker = new Tool('color picker', colorPickerElement, null)
