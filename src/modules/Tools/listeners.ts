@@ -1,13 +1,11 @@
 import { addShortcut } from '../../shortcuts'
 import { canvasContainer, canvasDrawing, layersContainer } from '../../canvas'
-import { canvasState } from '../../canvasState'
 import {
-  callTool,
   selectTool,
-  getPositionInCanvas,
-  mouse,
   updateRatio,
-  previewToDrawing,
+  startDrawing,
+  onDrawing,
+  stopDrawing,
 } from './index'
 import { AllTools as tools } from './tools/index'
 
@@ -21,44 +19,15 @@ window.addEventListener('load', updateRatio)
 layersContainer!.addEventListener('customResize', () => updateRatio())
 canvasDrawing!.addEventListener('customResize', () => updateRatio())
 
-// Canvas click listeners
-canvasContainer.addEventListener('mousedown', e => {
-  mouse.down = getPositionInCanvas(e.clientX, e.clientY)
-  canvasState.setReturnPoint()
-  callTool()
-})
+// Canvas mouse & touch listeners
+canvasContainer.addEventListener('mousedown', e => startDrawing(e))
+canvasContainer.addEventListener('touchstart', e => startDrawing(e))
 
-canvasContainer.addEventListener('mousemove', e => {
-  if (mouse.down) {
-    const { x, y } = getPositionInCanvas(e.clientX, e.clientY)
+canvasContainer.addEventListener('mousemove', e => onDrawing(e))
+canvasContainer.addEventListener('touchmove', e => onDrawing(e))
 
-    if (x === mouse.move?.currentX && y === mouse.move.currentY) return
-
-    if (mouse.move) {
-      mouse.move.lastX = mouse.move.currentX
-      mouse.move.lastY = mouse.move.currentY
-
-      mouse.move.currentX = x
-      mouse.move.currentY = y
-    } else {
-      mouse.move = {
-        lastX: mouse.down.x,
-        lastY: mouse.down.y,
-        currentX: x,
-        currentY: y,
-      }
-    }
-
-    callTool()
-  } else {
-    mouse.move = null
-  }
-})
-
-canvasContainer.addEventListener('mouseup', () => {
-  mouse.down = null
-  previewToDrawing()
-})
+canvasContainer.addEventListener('mouseup', e => stopDrawing(e))
+canvasContainer.addEventListener('touchend', e => stopDrawing(e))
 
 // Tool container
 

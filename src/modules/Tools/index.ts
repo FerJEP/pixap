@@ -11,6 +11,7 @@ import {
 import { MouseInfo, Tool } from './tools/Tool'
 import { AllTools as tools } from './tools/index'
 import './listeners'
+import { canvasState } from '../../canvasState'
 
 // Declarations
 export const ratio = {
@@ -76,4 +77,61 @@ export function previewToDrawing() {
     cxDrawing.drawImage(canvasPreview, 0, 0)
     cxPreview.clearRect(0, 0, canvasPreview.width, canvasPreview.height)
   }
+}
+
+export function startDrawing(e: MouseEvent | TouchEvent) {
+  e.preventDefault()
+  e.stopPropagation()
+
+  mouse.down =
+    e instanceof MouseEvent
+      ? getPositionInCanvas(e.clientX, e.clientY)
+      : getPositionInCanvas(e.touches[0].clientX, e.touches[0].clientY)
+  console.log(mouse.down)
+  canvasState.setReturnPoint()
+  callTool()
+}
+
+export function onDrawing(e: MouseEvent | TouchEvent) {
+  e.preventDefault()
+  e.stopPropagation()
+
+  if (mouse.down) {
+    const { x, y } =
+      e instanceof MouseEvent
+        ? getPositionInCanvas(e.clientX, e.clientY)
+        : getPositionInCanvas(e.touches[0].clientX, e.touches[0].clientY)
+
+    if (mouse.move) {
+      if (x === mouse.move.currentX && y === mouse.move.currentY) return
+
+      mouse.move.lastX = mouse.move.currentX
+      mouse.move.lastY = mouse.move.currentY
+
+      mouse.move.currentX = x
+      mouse.move.currentY = y
+    } else {
+      if (x === mouse.down.x && y === mouse.down.x) return
+
+      mouse.move = {
+        lastX: mouse.down.x,
+        lastY: mouse.down.y,
+        currentX: x,
+        currentY: y,
+      }
+    }
+
+    callTool()
+  } else {
+    mouse.move = null
+  }
+}
+
+export function stopDrawing(e: MouseEvent | TouchEvent) {
+  e.preventDefault()
+  e.stopPropagation()
+
+  mouse.down = null
+  mouse.move = null
+  previewToDrawing()
 }
