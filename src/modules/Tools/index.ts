@@ -92,12 +92,12 @@ export function startDrawing(e: MouseEvent | TouchEvent) {
     clientY = e.touches[0].clientY
   }
 
+  // Allowed clickable area (resting scroll bar, see below)
+  let allowWidth = canvasContainer.clientWidth + canvasContainer.offsetLeft
+  let allowHeight = canvasContainer.clientHeight + canvasContainer.offsetTop
+
   // if drawing starts on the scroll bar, just return
-  if (
-    clientX > canvasContainer.clientWidth ||
-    clientY > canvasContainer.clientHeight
-  )
-    return
+  if (clientX > allowWidth || clientY > allowHeight) return
 
   e.preventDefault()
   e.stopPropagation()
