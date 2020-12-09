@@ -3,6 +3,7 @@
 */
 
 import {
+  canvasContainer,
   canvasDrawing,
   canvasPreview,
   cxDrawing,
@@ -80,14 +81,29 @@ export function previewToDrawing() {
 }
 
 export function startDrawing(e: MouseEvent | TouchEvent) {
+  let clientX: number
+  let clientY: number
+
+  if (e instanceof MouseEvent) {
+    clientX = e.clientX
+    clientY = e.clientY
+  } else {
+    clientX = e.touches[0].clientX
+    clientY = e.touches[0].clientY
+  }
+
+  // if drawing starts on the scroll bar, just return
+  if (
+    clientX > canvasContainer.clientWidth ||
+    clientY > canvasContainer.clientHeight
+  )
+    return
+
   e.preventDefault()
   e.stopPropagation()
 
-  mouse.down =
-    e instanceof MouseEvent
-      ? getPositionInCanvas(e.clientX, e.clientY)
-      : getPositionInCanvas(e.touches[0].clientX, e.touches[0].clientY)
-  console.log(mouse.down)
+  mouse.down = getPositionInCanvas(clientX, clientY)
+
   canvasState.setReturnPoint()
   callTool()
 }
