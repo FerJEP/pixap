@@ -20,14 +20,26 @@ layersContainer!.addEventListener('customResize', () => updateRatio())
 canvasDrawing!.addEventListener('customResize', () => updateRatio())
 
 // Canvas mouse & touch listeners
-canvasContainer.addEventListener('mousedown', e => startDrawing(e))
-canvasContainer.addEventListener('touchstart', e => startDrawing(e))
+canvasContainer.addEventListener('mousedown', e => startDrawing(e), {
+  passive: false,
+})
+canvasContainer.addEventListener('touchstart', e => startDrawing(e), {
+  passive: false,
+})
 
-canvasContainer.addEventListener('mousemove', e => onDrawing(e))
-canvasContainer.addEventListener('touchmove', e => onDrawing(e))
+canvasContainer.addEventListener('mousemove', e => onDrawing(e), {
+  passive: false,
+})
+canvasContainer.addEventListener('touchmove', e => onDrawing(e), {
+  passive: false,
+})
 
-canvasContainer.addEventListener('mouseup', e => stopDrawing(e))
-canvasContainer.addEventListener('touchend', e => stopDrawing(e))
+canvasContainer.addEventListener('mouseup', e => stopDrawing(e), {
+  passive: false,
+})
+canvasContainer.addEventListener('touchend', e => stopDrawing(e), {
+  passive: false,
+})
 
 // Tool container
 

@@ -45,14 +45,18 @@ function updateDefaults() {
   canvasPreview.height = canvasDrawing.height
 }
 
-document.addEventListener('wheel', e => {
-  e.preventDefault()
+document.addEventListener(
+  'wheel',
+  e => {
+    e.preventDefault()
 
-  const newSize =
-    layersContainer.clientWidth + (e.deltaY < 0 ? zoomStep : -zoomStep)
+    const newSize =
+      layersContainer.clientWidth + (e.deltaY < 0 ? zoomStep : -zoomStep)
 
-  setLayersContainerSize(newSize)
-})
+    setLayersContainerSize(newSize)
+  },
+  { passive: false }
+)
 
 function ImageSmoothingFalse() {
   //@ts-ignore
