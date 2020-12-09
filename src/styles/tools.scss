@@ -39,4 +39,16 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
+  //Firts and last icon text get out of view
+  .tool:first-child .icon-text {
+    left: 0;
+    transform: translateY(-50%);
+  }
+
+  .tool:last-child .icon-text {
+    left: auto;
+    right: 0;
+    transform: translateY(-50%);
+  }
 }
