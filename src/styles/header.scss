@@ -56,6 +56,10 @@
   .icon:not(:last-child) {
     margin-right: 1rem;
   }
+
+  #settings-btn svg {
+    font-size: 37px;
+  }
 }
 
 @media all and (max-width: 768px) {

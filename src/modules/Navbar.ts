@@ -36,10 +36,10 @@ saveBtn.addEventListener('click', saveBtnHandler)
 addShortcut('saveBtn', saveBtnKey, saveBtnHandler)
 
 // Settings menu button
-const settingsBtn = document.getElementById('settings-btn') as ButtonIcon
+const newCanvasBtn = document.getElementById('settings-btn') as ButtonIcon
 
-if (!settingsBtn) throw new Error('Invalid setting nav button')
+if (!newCanvasBtn) throw new Error('Invalid new canvas nav button')
 
-insertButtonText(settingsBtn, 'Settings')
+insertButtonText(newCanvasBtn, 'New canvas')
 
-settingsBtn.addEventListener('click', () => openSettings())
+newCanvasBtn.addEventListener('click', () => openSettings())

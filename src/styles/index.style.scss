@@ -54,6 +54,8 @@ button {
   -webkit-tap-highlight-color: transparent;
 
   svg {
+    display: block;
+    margin: auto;
     font-size: 40px;
     pointer-events: none;
   }
