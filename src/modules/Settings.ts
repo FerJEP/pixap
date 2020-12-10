@@ -1,4 +1,4 @@
-import { canvasDrawing } from '../canvas'
+import { canvasDrawing, setCanvasDrawingSize } from '../canvas'
 import { canvasState } from '../canvasState'
 import { fileNameInput } from './Navbar'
 
@@ -77,8 +77,10 @@ function setInputValues() {
 }
 
 function applySettings() {
-  canvasDrawing.width = parseInt(settings.canvasWidth)
-  canvasDrawing.height = parseInt(settings.canvasHeight)
+  setCanvasDrawingSize(
+    parseInt(settings.canvasWidth),
+    parseInt(settings.canvasHeight)
+  )
 
   fileNameInput.value = settings.filename || 'untiled'
 
