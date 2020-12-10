@@ -27,7 +27,7 @@
           </button>
         </div>
         <div class="navbar-right" id="navbar-mobile">
-          <input type="text" id="filename-input" value="Untiled" />
+          <input type="text" id="filename-input" value="untiled" />
           <button class="icon" id="save-btn">
             <span
               class="iconify"
@@ -58,7 +58,15 @@
           </div>
           <form id="settings-form">
             <label class="settings-menu-label">
-              Width
+              Filename
+              <input
+                type="text"
+                name="filename"
+                placeholder="Name your file, you can leave it empty"
+              />
+            </label>
+            <label class="settings-menu-label">
+              Width (px)
               <input
                 type="number"
                 name="canvasWidth"
@@ -66,16 +74,18 @@
                 min="1"
                 max="256"
                 required
+                placeholder="in pixels"
               />
             </label>
             <label class="settings-menu-label">
-              Height
+              Height (px)
               <input
                 type="number"
                 name="canvasHeight"
                 minlength="1"
                 min="1"
                 max="256"
+                placeholder="in pixels"
                 required
               />
             </label>

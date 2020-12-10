@@ -1,8 +1,11 @@
 import { canvasDrawing } from '../canvas'
+import { canvasState } from '../canvasState'
+import { fileNameInput } from './Navbar'
 
 interface ISettings {
-  canvasWidth: number
-  canvasHeight: number
+  filename: string
+  canvasWidth: string
+  canvasHeight: string
 }
 
 // Dom elements
@@ -15,28 +18,36 @@ if (!settingsForm || !settingsCloseBtn || !settingsContainer)
 
 // Declarations
 const settings: ISettings = {
-  canvasWidth: canvasDrawing.width,
-  canvasHeight: canvasDrawing.height,
+  filename: '',
+  canvasWidth: canvasDrawing.width.toString(),
+  canvasHeight: canvasDrawing.height.toString(),
 }
-
-//Initialization
-initInputValues()
-applySettings()
 
 // Form's listener
 settingsForm.addEventListener('submit', e => {
   e.preventDefault()
   getSettings()
   applySettings()
+  canvasState.clear()
+  closeSettings()
 })
 
 // Close button listener
 settingsCloseBtn.addEventListener('click', () => {
-  settingsContainer.classList.remove('show')
-  initInputValues()
+  closeSettings()
 })
 
-// Methods
+export function openSettings() {
+  if (!settingsContainer?.classList.contains('show')) {
+    setInputValues()
+    settingsContainer?.classList.add('show')
+  }
+}
+
+export function closeSettings() {
+  settingsContainer?.classList.remove('show')
+}
+
 function getSettings() {
   const keys = Object.keys(settings)
 
@@ -46,18 +57,12 @@ function getSettings() {
     const input = settingsForm.elements.namedItem(key)
 
     if (input instanceof HTMLInputElement && input.checkValidity()) {
-      settings[key] = Number(input.value)
+      settings[key] = input.value
     }
   }
 }
 
-function applySettings() {
-  canvasDrawing.width = settings.canvasWidth
-  canvasDrawing.height = settings.canvasHeight
-  canvasDrawing.dispatchEvent(new Event('customResize'))
-}
-
-function initInputValues() {
+function setInputValues() {
   const keys = Object.keys(settings)
 
   for (let i = 0; i < keys.length; i++) {
@@ -66,11 +71,16 @@ function initInputValues() {
     const input = settingsForm.elements.namedItem(key)
 
     if (input instanceof HTMLInputElement) {
-      input.value = String(settings[key])
+      input.value = settings[key]
     }
   }
 }
 
-// exports
+function applySettings() {
+  canvasDrawing.width = parseInt(settings.canvasWidth)
+  canvasDrawing.height = parseInt(settings.canvasHeight)
 
-export { settingsContainer }
+  fileNameInput.value = settings.filename || 'untiled'
+
+  canvasDrawing.dispatchEvent(new Event('customResize'))
+}
