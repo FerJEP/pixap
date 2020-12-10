@@ -47,11 +47,11 @@
   }
 }
 
-#settings-form:invalid [type='submit'] {
+#settings-form:invalid .settings-submit-btn {
   background: rgb(124, 0, 0);
 }
 
-#settings-apply-btn {
+.settings-submit-btn {
   background: var(--secondColor);
   border: none;
   outline: none;
