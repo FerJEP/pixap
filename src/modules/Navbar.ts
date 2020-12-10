@@ -1,4 +1,4 @@
-import { settingsContainer } from './Settings'
+import { openSettings } from './Settings'
 import { canvasDrawing } from '../canvas'
 import { ButtonIcon, insertButtonText } from '../scripts/icon'
 import { saveImage } from '../scripts/saveImage'
@@ -17,7 +17,7 @@ navbarBtn.onclick = () => {
 // Save image button
 const saveBtnKey = 'ctrl+s'
 const saveBtn = document.getElementById('save-btn') as ButtonIcon
-const fileNameInput = document.getElementById(
+export const fileNameInput = document.getElementById(
   'filename-input'
 ) as HTMLInputElement
 
@@ -42,6 +42,4 @@ if (!settingsBtn) throw new Error('Invalid setting nav button')
 
 insertButtonText(settingsBtn, 'Settings')
 
-settingsBtn.addEventListener('click', () => {
-  settingsContainer?.classList.toggle('show')
-})
+settingsBtn.addEventListener('click', () => openSettings())
