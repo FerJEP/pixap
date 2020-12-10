@@ -37,6 +37,11 @@ class CanvasState {
       cxDrawing.putImageData(data, 0, 0)
     }
   }
+
+  clear() {
+    this.imageData = []
+    this.redoImageData = []
+  }
 }
 
 export const canvasState = new CanvasState()
