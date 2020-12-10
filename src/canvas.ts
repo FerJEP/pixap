@@ -32,17 +32,14 @@ export const cxPreview = canvasPreview.getContext('2d')!
 let zoomStep = 100
 
 // Initialization
-updateDefaults()
+setDefaults()
 setCanvasDrawingSize(16, 16)
 setLayersContainerSize(500)
 
-canvasDrawing.addEventListener('customResize', updateDefaults)
+canvasDrawing.addEventListener('customResize', setDefaults)
 
-function updateDefaults() {
+function setDefaults() {
   ImageSmoothingFalse()
-  checkeredCanvas('#d3d3d3', '#ffffff')
-  canvasPreview.width = canvasDrawing.width
-  canvasPreview.height = canvasDrawing.height
 }
 
 document.addEventListener(
@@ -71,7 +68,10 @@ function ImageSmoothingFalse() {
   cxDrawing.oImageSmoothingEnabled = false
 }
 
-function checkeredCanvas(color1: string, color2: string) {
+function checkeredCanvas() {
+  const color1 = '#d3d3d3'
+  const color2 = '#ffffff'
+
   canvasBackground.width = canvasDrawing.width
   canvasBackground.height = canvasDrawing.height
 
@@ -98,7 +98,10 @@ export function setLayersContainerSize(width: number) {
 }
 
 export function setCanvasDrawingSize(width: number, height: number) {
-  canvasDrawing.width = width
-  canvasDrawing.height = height
+  canvasDrawing.width = canvasBackground.width = canvasPreview.width = width
+  canvasDrawing.height = canvasBackground.height = canvasPreview.height = height
+
+  checkeredCanvas()
+
   canvasDrawing?.dispatchEvent(new Event('customResize'))
 }
