@@ -97,6 +97,10 @@
     .icon {
       width: auto;
 
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
       &-text {
         margin-left: 10px;
         display: block;
