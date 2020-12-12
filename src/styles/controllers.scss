@@ -11,6 +11,8 @@
 
   .icon-text {
     right: 110%;
+    top: 50%;
+    transform: translateY(-50%);
   }
 }
 
@@ -21,14 +23,14 @@
   }
 
   .controller .icon-text {
+    top: auto;
     right: auto;
-
     bottom: 100%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
 
-  //Firts and last icon text get out of view
+  //First and last icon text get out of view
   .controller:first-child .icon-text {
     left: 0;
     transform: translateY(-50%);
