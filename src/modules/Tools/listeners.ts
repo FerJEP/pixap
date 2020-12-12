@@ -1,12 +1,6 @@
 import { addShortcut } from '../../shortcuts'
-import { canvasContainer, canvasDrawing, layersContainer } from '../../canvas'
-import {
-  selectTool,
-  updateRatio,
-  startDrawing,
-  onDrawing,
-  stopDrawing,
-} from './index'
+import { canvasDrawing, layersContainer } from '../../canvas'
+import { selectTool, updateRatio } from './index'
 import { AllTools as tools } from './tools/index'
 
 // DOM element
@@ -18,28 +12,6 @@ if (!toolsContainer) throw new Error('Invalid tools container')
 window.addEventListener('load', updateRatio)
 layersContainer!.addEventListener('customResize', () => updateRatio())
 canvasDrawing!.addEventListener('customResize', () => updateRatio())
-
-// Canvas mouse & touch listeners
-canvasContainer.addEventListener('mousedown', e => startDrawing(e), {
-  passive: false,
-})
-canvasContainer.addEventListener('touchstart', e => startDrawing(e), {
-  passive: false,
-})
-
-canvasContainer.addEventListener('mousemove', e => onDrawing(e), {
-  passive: false,
-})
-canvasContainer.addEventListener('touchmove', e => onDrawing(e), {
-  passive: false,
-})
-
-canvasContainer.addEventListener('mouseup', e => stopDrawing(e), {
-  passive: false,
-})
-canvasContainer.addEventListener('touchend', e => stopDrawing(e), {
-  passive: false,
-})
 
 // Tool container
 
