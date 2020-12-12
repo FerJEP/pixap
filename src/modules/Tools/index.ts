@@ -11,8 +11,11 @@ import {
 } from '../../canvas'
 import { MouseInfo, Tool } from './tools/Tool'
 import { AllTools as tools } from './tools/index'
-import './listeners'
 import { canvasState } from '../../canvasState'
+
+// DOM
+
+export const toolsContainer = document.getElementById('tools-container')
 
 // Declarations
 export const ratio = {
@@ -27,8 +30,15 @@ export const mouse: MouseInfo = {
 let currentTool: Tool
 
 // Initialization
+if (!toolsContainer) throw new Error('Invalid tools container')
+
+toolsContainer.append(...tools.map(tool => tool.element))
+
 updateRatio()
 selectTool('pencil')
+
+import './listeners'
+// End
 
 export function callTool() {
   if (currentTool.method) {
