@@ -49,16 +49,20 @@
     font-size: 1rem;
   }
 
-  .icon-text {
-    top: 105%;
-  }
-
-  .icon:not(:last-child) {
-    margin-right: 1rem;
-  }
-
   #settings-btn svg {
     font-size: 37px;
+  }
+}
+
+.navbar-item {
+  .icon-text {
+    top: 105%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &:not(:last-child) {
+    margin-right: 1rem;
   }
 }
 
@@ -93,24 +97,25 @@
       transform: none;
       margin-bottom: 1rem;
     }
+  }
 
-    .icon {
-      width: auto;
+  .navbar-item {
+    width: auto;
 
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-      &-text {
-        margin-left: 10px;
-        display: block;
-        position: static;
-        border: none;
-        background: none;
-      }
+    .icon-text {
+      margin-left: 10px;
+      display: block;
+      position: static;
+      border: none;
+      background: none;
+      transform: none;
     }
 
-    .icon:not(:last-child) {
+    &:not(:last-child) {
       margin-right: 0;
       margin-bottom: 1rem;
     }
