@@ -96,9 +96,6 @@ function checkeredCanvas() {
   const color1 = '#d3d3d3'
   const color2 = '#ffffff'
 
-  canvasBackground.width = canvasDrawing.width
-  canvasBackground.height = canvasDrawing.height
-
   const cx = canvasBackground.getContext('2d')!
 
   for (let x = 0; x < canvasBackground.width; x++) {
