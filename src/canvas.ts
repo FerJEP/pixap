@@ -43,7 +43,7 @@ export const ratio = {
 }
 
 // Initialization
-setDefaults()
+ImageSmoothingFalse()
 updateRatio()
 setCanvasDrawingSize(16, 16)
 setLayersContainerSize(500)
@@ -51,13 +51,9 @@ setLayersContainerSize(500)
 window.addEventListener('load', () => updateRatio())
 layersContainer.addEventListener('customResize', () => updateRatio())
 canvasDrawing.addEventListener('customResize', () => {
-  setDefaults()
+  ImageSmoothingFalse()
   updateRatio()
 })
-
-function setDefaults() {
-  ImageSmoothingFalse()
-}
 
 function updateRatio() {
   ratio.width = canvasDrawing.width / canvasDrawing.offsetWidth
