@@ -78,12 +78,8 @@ export function keepDrawing(point: IPoint) {
 }
 
 // Called after startDrawing
-export function stopDrawing(point: IPoint) {
+export function stopDrawing() {
   if (!isDrawing) return
-
-  // Last tool call
-  points.push(point)
-  callTool()
 
   // Stopping
   isDrawing = false

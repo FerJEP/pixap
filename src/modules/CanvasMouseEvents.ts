@@ -78,9 +78,7 @@ canvasContainer.addEventListener(
 
 canvasContainer.addEventListener('mouseup', e => {
   if (e.button === 0) {
-    const point = getPositionInCanvas(e.clientX, e.clientY)
-
-    stopDrawing(point)
+    stopDrawing()
 
     lastPoint = null
   }
@@ -89,12 +87,10 @@ canvasContainer.addEventListener('mouseup', e => {
 canvasContainer.addEventListener(
   'touchend',
   e => {
-    const point = getPositionInCanvas(
-      e.touches[0].clientX,
-      e.touches[0].clientY
-    )
+    e.preventDefault()
+    e.stopPropagation()
 
-    stopDrawing(point)
+    stopDrawing()
 
     lastPoint = null
   },
