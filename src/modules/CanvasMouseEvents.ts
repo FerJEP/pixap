@@ -1,4 +1,11 @@
-import { canvasContainer, canvasDrawing, IPoint, ratio } from '../canvas'
+import {
+  canvasContainer,
+  canvasDrawing,
+  IPoint,
+  layersContainer,
+  ratio,
+} from '../canvas'
+import { moveElement } from '../scripts/moveElement'
 import { startDrawing, keepDrawing, stopDrawing } from './Tools'
 
 let lastPoint: IPoint | null
@@ -7,6 +14,7 @@ canvasContainer.addEventListener('mousedown', e => {
   const point = getPositionInCanvas(e.clientX, e.clientY)
 
   startDrawing(point)
+  lastPoint = point
 })
 
 canvasContainer.addEventListener(
@@ -28,6 +36,10 @@ canvasContainer.addEventListener(
 )
 
 canvasContainer.addEventListener('mousemove', e => {
+  // wheel button
+  if (e.buttons === 4)
+    return moveElement(layersContainer!, e.movementX, e.movementY)
+
   const point = getPositionInCanvas(e.clientX, e.clientY)
 
   if (lastPoint && lastPoint.x === point.x && lastPoint.y === point.y) return
@@ -84,7 +96,7 @@ canvasContainer.addEventListener(
   }
 )
 
-export function getPositionInCanvas(clientX: number, clientY: number): IPoint {
+function getPositionInCanvas(clientX: number, clientY: number): IPoint {
   const rect = canvasDrawing.getBoundingClientRect()
 
   clientX -= rect.x
