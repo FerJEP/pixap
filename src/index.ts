@@ -5,7 +5,7 @@ import './canvas'
 //Modules
 import { openSettings } from './modules/Settings'
 import './modules/Navbar' //Navbar mobile handler
-import './modules/CanvasMouseEvents'
+import './modules/CanvasPointerEvents'
 import './modules/Tools/index'
 import './modules/Controllers'
 
