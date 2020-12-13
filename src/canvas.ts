@@ -48,17 +48,8 @@ updateRatio()
 setCanvasDrawingSize(16, 16)
 setLayersContainerSize(500)
 
+// Global listeners
 window.addEventListener('load', () => updateRatio())
-layersContainer.addEventListener('customResize', () => updateRatio())
-canvasDrawing.addEventListener('customResize', () => {
-  ImageSmoothingFalse()
-  updateRatio()
-})
-
-function updateRatio() {
-  ratio.width = canvasDrawing.width / canvasDrawing.offsetWidth
-  ratio.height = canvasDrawing.height / canvasDrawing.offsetHeight
-}
 
 document.addEventListener(
   'wheel',
@@ -72,6 +63,21 @@ document.addEventListener(
   },
   { passive: false }
 )
+
+// Canvas listeners
+layersContainer.addEventListener('customResize', () => updateRatio())
+
+canvasDrawing.addEventListener('customResize', () => {
+  ImageSmoothingFalse()
+  updateRatio()
+})
+
+// functions
+
+function updateRatio() {
+  ratio.width = canvasDrawing.width / canvasDrawing.offsetWidth
+  ratio.height = canvasDrawing.height / canvasDrawing.offsetHeight
+}
 
 function ImageSmoothingFalse() {
   //@ts-ignore
