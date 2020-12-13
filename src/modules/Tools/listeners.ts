@@ -6,7 +6,7 @@ import { AllTools as tools } from './tools/index'
 
 toolsContainer!.addEventListener('click', ({ target }) => {
   if (target instanceof HTMLElement) {
-    const name = target.getAttribute('name')
+    const name = target.dataset.name
 
     if (name) selectTool(name)
   }

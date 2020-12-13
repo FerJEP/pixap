@@ -17,7 +17,7 @@ export class Tool {
     public method: ToolMethod | null,
     public shortcut?: string
   ) {
-    this.element.setAttribute('name', this.name)
+    this.element.dataset.name = this.name
 
     let iconText = `${this.name} tool`
     if (shortcut) iconText += ` (${this.shortcut})`
