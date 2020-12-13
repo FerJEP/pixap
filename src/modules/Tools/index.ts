@@ -91,3 +91,14 @@ export function stopDrawing() {
     cxPreview.clearRect(0, 0, canvasPreview.width, canvasPreview.height)
   }
 }
+
+export function cancelDrawing() {
+  if (!isDrawing) return
+
+  isDrawing = false
+  points = []
+
+  if (currentTool.name !== 'eraser') {
+    cxPreview.clearRect(0, 0, canvasPreview.width, canvasPreview.height)
+  }
+}
