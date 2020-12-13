@@ -36,15 +36,32 @@ export interface IPoint {
 // In pixels
 let zoomStep = 100
 
+// Ratio between style canvas size and real canvas size
+export const ratio = {
+  height: 0,
+  width: 0,
+}
+
 // Initialization
 setDefaults()
+updateRatio()
 setCanvasDrawingSize(16, 16)
 setLayersContainerSize(500)
 
-canvasDrawing.addEventListener('customResize', setDefaults)
+window.addEventListener('load', () => updateRatio())
+layersContainer.addEventListener('customResize', () => updateRatio())
+canvasDrawing.addEventListener('customResize', () => {
+  setDefaults()
+  updateRatio()
+})
 
 function setDefaults() {
   ImageSmoothingFalse()
+}
+
+function updateRatio() {
+  ratio.width = canvasDrawing.width / canvasDrawing.offsetWidth
+  ratio.height = canvasDrawing.height / canvasDrawing.offsetHeight
 }
 
 document.addEventListener(

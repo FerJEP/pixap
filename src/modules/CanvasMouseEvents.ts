@@ -1,23 +1,7 @@
-import {
-  canvasContainer,
-  canvasDrawing,
-  layersContainer,
-  IPoint,
-} from '../canvas'
+import { canvasContainer, canvasDrawing, IPoint, ratio } from '../canvas'
 import { startDrawing, keepDrawing, stopDrawing } from './Tools'
 
 let lastPoint: IPoint | null
-
-const ratio = {
-  height: 0,
-  width: 0,
-}
-
-updateRatio()
-
-window.addEventListener('load', () => updateRatio())
-layersContainer!.addEventListener('customResize', () => updateRatio())
-canvasDrawing!.addEventListener('customResize', () => updateRatio())
 
 canvasContainer.addEventListener('mousedown', e => {
   const point = getPositionInCanvas(e.clientX, e.clientY)
@@ -113,9 +97,4 @@ export function getPositionInCanvas(clientX: number, clientY: number): IPoint {
     x: posX,
     y: posY,
   }
-}
-
-function updateRatio() {
-  ratio.width = canvasDrawing.width / canvasDrawing.offsetWidth
-  ratio.height = canvasDrawing.height / canvasDrawing.offsetHeight
 }
