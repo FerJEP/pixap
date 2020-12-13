@@ -28,6 +28,11 @@ export { canvasContainer, layersContainer, canvasDrawing, canvasPreview }
 export const cxDrawing = canvasDrawing.getContext('2d')!
 export const cxPreview = canvasPreview.getContext('2d')!
 
+export interface IPoint {
+  x: number
+  y: number
+}
+
 // In pixels
 let zoomStep = 100
 
