@@ -3,15 +3,24 @@ import { Tool, ToolMethod } from './Tool'
 
 const pencilElement = Tool.createElement('bx:bxs-pencil') as HTMLButtonElement
 
-const pencilMethod: ToolMethod = (cx, mouse) => {
-  if (mouse.move) {
-    const { lastX, lastY, currentX, currentY } = mouse.move
+const pencilMethod: ToolMethod = (cx, points) => {
+  if (points.length === 1) {
+    const point = points[0]
 
-    lineAlgo(lastX, lastY, currentX, currentY, (x, y) => {
-      cx.fillRect(x, y, 1, 1)
-    })
-  } else if (mouse.down) {
-    cx.fillRect(mouse.down.x, mouse.down.y, 1, 1)
+    cx.fillRect(point.x, point.y, 1, 1)
+  } else if (points.length > 1) {
+    const lastPoint = points[points.length - 2]
+    const currentPoint = points[points.length - 1]
+
+    lineAlgo(
+      lastPoint.x,
+      lastPoint.y,
+      currentPoint.x,
+      currentPoint.y,
+      (x, y) => {
+        cx.fillRect(x, y, 1, 1)
+      }
+    )
   }
 }
 

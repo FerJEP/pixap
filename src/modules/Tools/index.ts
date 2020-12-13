@@ -2,14 +2,8 @@
     This module handles all the tools in the application.
 */
 
-import {
-  canvasContainer,
-  canvasDrawing,
-  canvasPreview,
-  cxDrawing,
-  cxPreview,
-} from '../../canvas'
-import { MouseInfo, Tool } from './tools/Tool'
+import { IPoint, canvasPreview, cxDrawing, cxPreview } from '../../canvas'
+import { Tool } from './tools/Tool'
 import { AllTools as tools } from './tools/index'
 import { canvasState } from '../../canvasState'
 
@@ -18,14 +12,9 @@ import { canvasState } from '../../canvasState'
 export const toolsContainer = document.getElementById('tools-container')
 
 // Declarations
-export const ratio = {
-  height: 0,
-  width: 0,
-}
-export const mouse: MouseInfo = {
-  down: null,
-  move: null,
-}
+
+let isDrawing = false
+let points: IPoint[] = []
 
 let currentTool: Tool
 
@@ -34,40 +23,21 @@ if (!toolsContainer) throw new Error('Invalid tools container')
 
 toolsContainer.append(...tools.map(tool => tool.element))
 
-updateRatio()
 selectTool('pencil')
 
 import './listeners'
 // End
 
 export function callTool() {
-  if (currentTool.method) {
-    if (currentTool.name === 'eraser') {
-      currentTool.method(cxDrawing, mouse)
-    } else {
-      currentTool.method(cxPreview, mouse)
-    }
+  // If it is not drawing or there is not tool method, return
+  if (!isDrawing || !currentTool.method) return
+
+  // Eraser tool needs to clear canvasDrawing instead of preview
+  if (currentTool.name === 'eraser') {
+    currentTool.method(cxDrawing, points)
+  } else {
+    currentTool.method(cxPreview, points)
   }
-}
-
-export function getPositionInCanvas(clientX: number, clientY: number) {
-  const rect = canvasDrawing.getBoundingClientRect()
-
-  clientX -= rect.x
-  clientY -= rect.y
-
-  const posX = Math.floor(clientX * ratio.width)
-  const posY = Math.floor(clientY * ratio.height)
-
-  return {
-    x: posX,
-    y: posY,
-  }
-}
-
-export function updateRatio() {
-  ratio.width = canvasDrawing.width / canvasDrawing.offsetWidth
-  ratio.height = canvasDrawing.height / canvasDrawing.offsetHeight
 }
 
 export function selectTool(name: string) {
@@ -83,81 +53,45 @@ export function selectTool(name: string) {
   currentTool.element.classList.add('selected')
 }
 
-export function previewToDrawing() {
-  if (currentTool.name !== 'eraser') {
-    cxDrawing.drawImage(canvasPreview, 0, 0)
-    cxPreview.clearRect(0, 0, canvasPreview.width, canvasPreview.height)
-  }
-}
+// call startDrawing() first, then keepDrawing() when pointer moves, and finally
+// stopDrawing() when pointer to stop the drawing state.
 
-export function startDrawing(e: MouseEvent | TouchEvent) {
-  let clientX: number
-  let clientY: number
+export function startDrawing(point: IPoint) {
+  if (isDrawing) return
 
-  if (e instanceof MouseEvent) {
-    clientX = e.clientX
-    clientY = e.clientY
-  } else {
-    clientX = e.touches[0].clientX
-    clientY = e.touches[0].clientY
-  }
+  // Starting drawing
+  points.push(point)
+  isDrawing = true
 
-  // Allowed clickable area (resting scroll bar, see below)
-  let allowWidth = canvasContainer.clientWidth + canvasContainer.offsetLeft
-  let allowHeight = canvasContainer.clientHeight + canvasContainer.offsetTop
-
-  // if drawing starts on the scroll bar, just return
-  if (clientX > allowWidth || clientY > allowHeight) return
-
-  e.preventDefault()
-  e.stopPropagation()
-
-  mouse.down = getPositionInCanvas(clientX, clientY)
-
+  // Calling tool
   canvasState.setReturnPoint()
   callTool()
 }
 
-export function onDrawing(e: MouseEvent | TouchEvent) {
-  e.preventDefault()
-  e.stopPropagation()
+// Called after startDrawing
+export function keepDrawing(point: IPoint) {
+  if (!isDrawing) return
 
-  if (mouse.down) {
-    const { x, y } =
-      e instanceof MouseEvent
-        ? getPositionInCanvas(e.clientX, e.clientY)
-        : getPositionInCanvas(e.touches[0].clientX, e.touches[0].clientY)
+  points.push(point)
 
-    if (mouse.move) {
-      if (x === mouse.move.currentX && y === mouse.move.currentY) return
-
-      mouse.move.lastX = mouse.move.currentX
-      mouse.move.lastY = mouse.move.currentY
-
-      mouse.move.currentX = x
-      mouse.move.currentY = y
-    } else {
-      if (x === mouse.down.x && y === mouse.down.x) return
-
-      mouse.move = {
-        lastX: mouse.down.x,
-        lastY: mouse.down.y,
-        currentX: x,
-        currentY: y,
-      }
-    }
-
-    callTool()
-  } else {
-    mouse.move = null
-  }
+  callTool()
 }
 
-export function stopDrawing(e: MouseEvent | TouchEvent) {
-  e.preventDefault()
-  e.stopPropagation()
+// Called after startDrawing
+export function stopDrawing(point: IPoint) {
+  if (!isDrawing) return
 
-  mouse.down = null
-  mouse.move = null
-  previewToDrawing()
+  // Last tool call
+  points.push(point)
+  callTool()
+
+  // Stopping
+  isDrawing = false
+  points = []
+
+  // Drawing canvasPreview on canvasDrawing
+  if (currentTool.name !== 'eraser') {
+    cxDrawing.drawImage(canvasPreview, 0, 0)
+    cxPreview.clearRect(0, 0, canvasPreview.width, canvasPreview.height)
+  }
 }

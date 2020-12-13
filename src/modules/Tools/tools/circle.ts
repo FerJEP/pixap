@@ -2,20 +2,24 @@ import { circleAlgo } from '../../../scripts/circleAlgo'
 import { Tool, ToolMethod } from './Tool'
 
 const circleElement = Tool.createElement('bi-circle')
-const circleMethod: ToolMethod = (cx, mouse) => {
-  if (mouse.move && mouse.down) {
-    const xd = mouse.move.currentX - mouse.down.x
-    const yd = mouse.move.currentY - mouse.down.y
+const circleMethod: ToolMethod = (cx, points) => {
+  if (points.length === 1) {
+    const point = points[0]
+
+    cx.fillRect(point.x, point.y, 1, 1)
+  } else if (points.length > 1) {
+    const firstPoint = points[0]
+    const currentPoint = points[points.length - 1]
+
+    const xd = currentPoint.x - firstPoint.x
+    const yd = currentPoint.y - firstPoint.y
 
     const radio = Math.floor(Math.sqrt(xd * xd + yd * yd))
 
     cx.clearRect(0, 0, cx.canvas.width, cx.canvas.height)
-    circleAlgo(mouse.down.x, mouse.down.y, radio, (x, y) => {
+    circleAlgo(firstPoint.x, firstPoint.y, radio, (x, y) => {
       cx.fillRect(x, y, 1, 1)
     })
-  } else if (mouse.down) {
-    cx.clearRect(0, 0, cx.canvas.width, cx.canvas.height)
-    cx.fillRect(mouse.down.x, mouse.down.y, 1, 1)
   }
 }
 
