@@ -6,9 +6,10 @@ import {
   ratio,
 } from '../canvas'
 import { moveElement } from '../scripts/moveElement'
-import { startDrawing, keepDrawing, stopDrawing } from './Tools'
+import { startDrawing, keepDrawing, stopDrawing, cancelDrawing } from './Tools'
 
-let lastPoint: IPoint | null
+let lastPoint: IPoint | null = null
+let previous2TouchEvent: TouchEvent | null = null
 
 canvasContainer.addEventListener('mousedown', e => {
   if (e.button === 0) {
@@ -26,12 +27,18 @@ canvasContainer.addEventListener(
     e.preventDefault()
     e.stopPropagation()
 
-    const point = getPositionInCanvas(
-      e.touches[0].clientX,
-      e.touches[0].clientY
-    )
+    if (e.touches.length > 1) {
+      cancelDrawing()
+      lastPoint = null
+      previous2TouchEvent = e
+    } else {
+      const point = getPositionInCanvas(
+        e.touches[0].clientX,
+        e.touches[0].clientY
+      )
 
-    startDrawing(point)
+      startDrawing(point)
+    }
   },
   {
     passive: false,
@@ -60,16 +67,38 @@ canvasContainer.addEventListener(
     e.preventDefault()
     e.stopPropagation()
 
-    const point = getPositionInCanvas(
-      e.touches[0].clientX,
-      e.touches[0].clientY
-    )
+    if (e.touches.length > 1) {
+      cancelDrawing()
+      lastPoint = null
 
-    if (lastPoint && lastPoint.x === point.x && lastPoint.y === point.y) return
+      const currentX = e.touches[0].pageX + e.touches[1].pageX / 2
+      const currentY = e.touches[0].pageY + e.touches[1].pageY / 2
 
-    keepDrawing(point)
+      const previousX =
+        previous2TouchEvent!.touches[0].pageX +
+        previous2TouchEvent!.touches[1].pageX / 2
+      const previousY =
+        previous2TouchEvent!.touches[0].pageY +
+        previous2TouchEvent!.touches[1].pageY / 2
 
-    lastPoint = point
+      const movementX = currentX - previousX
+      const movementY = currentY - previousY
+
+      moveElement(layersContainer!, movementX, movementY)
+      previous2TouchEvent = e
+    } else {
+      const point = getPositionInCanvas(
+        e.touches[0].clientX,
+        e.touches[0].clientY
+      )
+
+      if (lastPoint && lastPoint.x === point.x && lastPoint.y === point.y)
+        return
+
+      keepDrawing(point)
+
+      lastPoint = point
+    }
   },
   {
     passive: false,
@@ -87,12 +116,17 @@ canvasContainer.addEventListener('mouseup', e => {
 canvasContainer.addEventListener(
   'touchend',
   e => {
-    e.preventDefault()
-    e.stopPropagation()
+    if (e.touches.length > 1) {
+      previous2TouchEvent = e
+    } else if (e.touches.length == 0) {
+      e.preventDefault()
+      e.stopPropagation()
 
-    stopDrawing()
+      stopDrawing()
 
-    lastPoint = null
+      lastPoint = null
+      previous2TouchEvent = null
+    }
   },
   {
     passive: false,
