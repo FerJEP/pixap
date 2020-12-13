@@ -11,10 +11,13 @@ import { startDrawing, keepDrawing, stopDrawing } from './Tools'
 let lastPoint: IPoint | null
 
 canvasContainer.addEventListener('mousedown', e => {
-  const point = getPositionInCanvas(e.clientX, e.clientY)
+  if (e.button === 0) {
+    // left click button
+    const point = getPositionInCanvas(e.clientX, e.clientY)
 
-  startDrawing(point)
-  lastPoint = point
+    startDrawing(point)
+    lastPoint = point
+  }
 })
 
 canvasContainer.addEventListener(
@@ -36,17 +39,19 @@ canvasContainer.addEventListener(
 )
 
 canvasContainer.addEventListener('mousemove', e => {
-  // wheel button
-  if (e.buttons === 4)
-    return moveElement(layersContainer!, e.movementX, e.movementY)
+  if (e.buttons === 4) {
+    // wheel button
+    moveElement(layersContainer!, e.movementX, e.movementY)
+  } else if (e.buttons === 1) {
+    // left click button
+    const point = getPositionInCanvas(e.clientX, e.clientY)
 
-  const point = getPositionInCanvas(e.clientX, e.clientY)
+    if (lastPoint && lastPoint.x === point.x && lastPoint.y === point.y) return
 
-  if (lastPoint && lastPoint.x === point.x && lastPoint.y === point.y) return
+    keepDrawing(point)
 
-  keepDrawing(point)
-
-  lastPoint = point
+    lastPoint = point
+  }
 })
 
 canvasContainer.addEventListener(
@@ -72,11 +77,13 @@ canvasContainer.addEventListener(
 )
 
 canvasContainer.addEventListener('mouseup', e => {
-  const point = getPositionInCanvas(e.clientX, e.clientY)
+  if (e.button === 0) {
+    const point = getPositionInCanvas(e.clientX, e.clientY)
 
-  stopDrawing(point)
+    stopDrawing(point)
 
-  lastPoint = null
+    lastPoint = null
+  }
 })
 
 canvasContainer.addEventListener(
