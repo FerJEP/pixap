@@ -18,6 +18,10 @@
     border: none;
   }
 
+  &[name='line'] svg {
+    transform: rotate(-45deg) !important;
+  }
+
   &.selected {
     background: rgb(0, 140, 255);
     border-radius: 10px;
