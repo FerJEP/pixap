@@ -89,11 +89,13 @@ function checkeredCanvas() {
   }
 }
 
-export function setLayersContainerSize(width: number) {
-  const heightRatio = canvasDrawing.height / canvasDrawing.width
+export function setLayersContainerSize(width: number, height?: number) {
+  // height if exists || width per the size ratio
+  height =
+    height || width * (canvasDrawing.clientHeight / canvasDrawing.clientWidth)
 
   layersContainer!.style.width = width + 'px'
-  layersContainer!.style.height = width * heightRatio + 'px'
+  layersContainer!.style.height = height + 'px'
   layersContainer?.dispatchEvent(new Event('customResize'))
 }
 
