@@ -1,4 +1,5 @@
+import { fitToScreen } from './fitToScreen'
 import { undo, redo } from './state'
 import { zoomIn, zoomOut } from './zoom'
 
-export const controllers = [undo, redo, zoomIn, zoomOut]
+export const controllers = [undo, redo, zoomIn, zoomOut, fitToScreen]
