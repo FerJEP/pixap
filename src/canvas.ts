@@ -33,9 +33,6 @@ export interface IPoint {
   y: number
 }
 
-// In pixels
-let zoomStep = 100
-
 // Ratio between style canvas size and real canvas size
 export const ratio = {
   height: 0,
@@ -46,23 +43,9 @@ export const ratio = {
 ImageSmoothingFalse()
 updateRatio()
 setCanvasDrawingSize(16, 16)
-setLayersContainerSize(500)
 
 // Global listeners
 window.addEventListener('load', () => updateRatio())
-
-document.addEventListener(
-  'wheel',
-  e => {
-    e.preventDefault()
-
-    const newSize =
-      layersContainer.clientWidth + (e.deltaY < 0 ? zoomStep : -zoomStep)
-
-    setLayersContainerSize(newSize)
-  },
-  { passive: false }
-)
 
 // Canvas listeners
 layersContainer.addEventListener('customResize', () => updateRatio())
@@ -104,10 +87,6 @@ function checkeredCanvas() {
       cx.fillRect(x, y, 1, 1)
     }
   }
-}
-
-export function getZoomStep() {
-  return zoomStep
 }
 
 export function setLayersContainerSize(width: number) {
