@@ -67,13 +67,15 @@ canvasContainer.addEventListener(
     e.preventDefault()
     e.stopPropagation()
 
-    if (e.touches.length > 1) {
+    if (e.touches.length >= 2) {
       cancelDrawing()
       lastPoint = null
 
+      // Average of the current two points
       const currentX = e.touches[0].pageX + e.touches[1].pageX / 2
       const currentY = e.touches[0].pageY + e.touches[1].pageY / 2
 
+      // Average of the previous two points
       const previousX =
         previous2TouchEvent!.touches[0].pageX +
         previous2TouchEvent!.touches[1].pageX / 2
@@ -81,9 +83,11 @@ canvasContainer.addEventListener(
         previous2TouchEvent!.touches[0].pageY +
         previous2TouchEvent!.touches[1].pageY / 2
 
-      const movementX = currentX - previousX
-      const movementY = currentY - previousY
+      // delta of current and previous points
+      const movementX = Math.floor(currentX - previousX)
+      const movementY = Math.floor(currentY - previousY)
 
+      // moveElement adds to the element position
       moveElement(layersContainer!, movementX, movementY)
       previous2TouchEvent = e
     } else {
@@ -116,7 +120,7 @@ canvasContainer.addEventListener('mouseup', e => {
 canvasContainer.addEventListener(
   'touchend',
   e => {
-    if (e.touches.length > 1) {
+    if (e.touches.length >= 2) {
       previous2TouchEvent = e
     } else if (e.touches.length == 0) {
       e.preventDefault()
