@@ -22,7 +22,7 @@ const zoomInMethod = () => {
 // Redo
 const zoomOutElement = Controller.createElement('codicon:zoom-out')
 const zoomOutMethod = () => {
-  if (level <= -5) return
+  if (level <= 0) return
 
   let width = layersContainer!.clientWidth - zoomStep
 
