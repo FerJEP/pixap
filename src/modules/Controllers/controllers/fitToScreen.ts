@@ -1,8 +1,10 @@
 import {
   canvasContainer,
   canvasDrawing,
+  layersContainer,
   setLayersContainerSize,
 } from '../../../canvas'
+import { moveElement } from '../../../scripts/moveElement'
 import { Controller } from './Controller'
 
 const fitToScreenElement = Controller.createElement('octicon-screen-normal-24')
@@ -20,6 +22,13 @@ const fitToScreenMethod = () => {
   }
 
   setLayersContainerSize(width, height)
+
+  //Moving element to the center
+  moveElement(
+    layersContainer!,
+    canvasContainer.clientHeight / 2,
+    canvasContainer.clientWidth / 2
+  )
 }
 
 export const fitToScreen = new Controller(
