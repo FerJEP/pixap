@@ -32,8 +32,8 @@ export function callTool() {
   // If it is not drawing or there is not tool method, return
   if (!isDrawing || !currentTool.method) return
 
-  // Eraser tool needs to clear canvasDrawing instead of preview
-  if (currentTool.name === 'eraser') {
+  // some tools work on drawing context instead of preview context
+  if (currentTool.name === 'eraser' || currentTool.name === 'flood fill') {
     currentTool.method(cxDrawing, points)
   } else {
     currentTool.method(cxPreview, points)
