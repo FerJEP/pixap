@@ -6,26 +6,30 @@ import {
 } from '../../../canvas'
 
 const zoomStep = 100
+let level = 0
+
+export const setLevel = (n: number) => (level = n)
 
 // Zoom in
 const zoomInElement = Controller.createElement('codicon:zoom-in')
 const zoomInMethod = () => {
   let width = layersContainer!.clientWidth + zoomStep
 
-  if (width > canvasContainer.clientWidth * 2)
-    width = canvasContainer.clientWidth * 2
+  if (width > canvasContainer.clientWidth) return
 
   setLayersContainerSize(width)
+  level++
 }
 
 // Redo
 const zoomOutElement = Controller.createElement('codicon:zoom-out')
 const zoomOutMethod = () => {
+  if (level <= 0) return
+
   let width = layersContainer!.clientWidth - zoomStep
 
-  if (width < zoomStep) width = zoomStep
-
   setLayersContainerSize(width)
+  level--
 }
 
 canvasContainer.addEventListener(
