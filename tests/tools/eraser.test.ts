@@ -15,21 +15,18 @@ test('Eraser: Initialization', () => {
 
 test('Eraser: Single Point', () => {
   // Called with no cords
-  eraser.method!(cx, { down: null })
+  eraser.method!(cx, [])
 
   expect(spyClearRect).toBeCalledTimes(0)
 
   //Actual first point
-  eraser.method!(cx, { down: { x: 10, y: 9 } })
+  eraser.method!(cx, [{ x: 10, y: 9 }])
 
   expect(spyClearRect).nthCalledWith(1, 10, 9, 1, 1)
   // cx.clearRect(x: 10, y: 10, width: 1, height: 1)
 
   // Second point
-  eraser.method!(cx, {
-    down: { x: 0, y: 0 },
-    move: { lastX: 2, lastY: 3, currentX: 2, currentY: 3 },
-  })
+  eraser.method!(cx, [{ x: 2, y: 3 }])
 
   expect(spyClearRect).nthCalledWith(2, 2, 3, 1, 1)
   // cx.clearRect(x: 2, y: 3, width: 1, height: 1)
@@ -39,19 +36,10 @@ test('Eraser: Single Point', () => {
 })
 
 test('Eraser: Line', () => {
-  const down = {
-    x: 0,
-    y: 0,
-  }
-
-  const move = {
-    lastX: 0,
-    lastY: 0,
-    currentX: 8,
-    currentY: 8,
-  }
-
-  eraser.method!(cx, { down, move })
+  eraser.method!(cx, [
+    { x: 0, y: 0 },
+    { x: 8, y: 8 },
+  ])
 
   expect(spyClearRect).toBeCalledTimes(9)
   expect(spyClearRect).nthCalledWith(1, 0, 0, 1, 1)

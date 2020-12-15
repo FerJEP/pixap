@@ -15,21 +15,18 @@ test('Pencil: Initialization', () => {
 
 test('Pencil: Single Point', () => {
   // Called with no cords
-  pencil.method!(cx, { down: null })
+  pencil.method!(cx, [])
 
   expect(spyFillRect).toBeCalledTimes(0)
 
   //Actual first point
-  pencil.method!(cx, { down: { x: 10, y: 9 } })
+  pencil.method!(cx, [{ x: 10, y: 9 }])
 
   expect(spyFillRect).nthCalledWith(1, 10, 9, 1, 1)
   // cx.fillRect(x: 10, y: 10, width: 1, height: 1)
 
   // Second point
-  pencil.method!(cx, {
-    down: { x: 0, y: 0 },
-    move: { lastX: 2, lastY: 3, currentX: 2, currentY: 3 },
-  })
+  pencil.method!(cx, [{ x: 2, y: 3 }])
 
   expect(spyFillRect).nthCalledWith(2, 2, 3, 1, 1)
   // cx.fillRect(x: 2, y: 3, width: 1, height: 1)
@@ -39,19 +36,10 @@ test('Pencil: Single Point', () => {
 })
 
 test('Pencil: Line', () => {
-  const down = {
-    x: 0,
-    y: 0,
-  }
-
-  const move = {
-    lastX: 0,
-    lastY: 0,
-    currentX: 8,
-    currentY: 8,
-  }
-
-  pencil.method!(cx, { down, move })
+  pencil.method!(cx, [
+    { x: 0, y: 0 },
+    { x: 8, y: 8 },
+  ])
 
   expect(spyFillRect).toBeCalledTimes(9)
   expect(spyFillRect).nthCalledWith(1, 0, 0, 1, 1)

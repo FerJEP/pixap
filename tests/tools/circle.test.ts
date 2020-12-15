@@ -16,25 +16,25 @@ test('Circle:  Initialization', () => {
 
 test('Circle: Single point', () => {
   // Called with no cords
-  circle.method!(cx, { down: null })
+  circle.method!(cx, [])
   expect(spyFillRect).toBeCalledTimes(0)
 
   // Just a click
-  circle.method!(cx, { down: { x: 0, y: 0 } })
+  circle.method!(cx, [{ x: 0, y: 0 }])
   expect(spyFillRect).toBeCalledTimes(1)
   expect(spyFillRect).nthCalledWith(1, 0, 0, 1, 1)
 
   // Another click
-  circle.method!(cx, { down: { x: 7, y: 8 } })
+  circle.method!(cx, [{ x: 7, y: 8 }])
   expect(spyFillRect).toBeCalledTimes(2)
   expect(spyFillRect).nthCalledWith(2, 7, 8, 1, 1)
 })
 
 test('Circle: 3 radius', () => {
-  circle.method!(cx, {
-    down: { x: 0, y: 0 },
-    move: { lastX: 0, lastY: 0, currentX: 3, currentY: 0 },
-  })
+  circle.method!(cx, [
+    { x: 0, y: 0 },
+    { x: 3, y: 0 },
+  ])
 
   expect(spyFillRect).toBeCalledTimes(r3Points.length)
   expect(spyFillRect.mock.calls).toEqual(
@@ -43,10 +43,10 @@ test('Circle: 3 radius', () => {
 })
 
 test('Circle: 10 radius', () => {
-  circle.method!(cx, {
-    down: { x: 0, y: 0 },
-    move: { lastX: 0, lastY: 0, currentX: 10, currentY: 0 },
-  })
+  circle.method!(cx, [
+    { x: 0, y: 0 },
+    { x: 10, y: 0 },
+  ])
 
   expect(spyFillRect).toBeCalledTimes(r10Points.length)
   expect(spyFillRect.mock.calls).toEqual(
