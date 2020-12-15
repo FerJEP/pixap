@@ -10,13 +10,22 @@ const zoomStep = 100
 // Zoom in
 const zoomInElement = Controller.createElement('codicon:zoom-in')
 const zoomInMethod = () => {
-  setLayersContainerSize(layersContainer!.clientWidth + zoomStep)
+  let width = layersContainer!.clientWidth + zoomStep
+
+  if (width > canvasContainer.clientWidth * 2)
+    width = canvasContainer.clientWidth * 2
+
+  setLayersContainerSize(width)
 }
 
 // Redo
 const zoomOutElement = Controller.createElement('codicon:zoom-out')
 const zoomOutMethod = () => {
-  setLayersContainerSize(layersContainer!.clientWidth - zoomStep)
+  let width = layersContainer!.clientWidth - zoomStep
+
+  if (width < zoomStep) width = zoomStep
+
+  setLayersContainerSize(width)
 }
 
 canvasContainer.addEventListener(
