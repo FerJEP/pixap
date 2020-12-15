@@ -1,4 +1,4 @@
-import { canvasDrawing, cxPreview } from '../../../canvas'
+import { canvasDrawing, cxDrawing, cxPreview } from '../../../canvas'
 import { Tool } from './Tool'
 
 // A color picker tool, relying on the browser color input
@@ -9,8 +9,8 @@ const inputColor = document.createElement('input')
 colorPickerElement.classList.add('icon', 'tool')
 
 inputColor.setAttribute('type', 'color')
-cxPreview.strokeStyle = inputColor.value
-cxPreview.fillStyle = inputColor.value
+cxDrawing.fillStyle = cxPreview.fillStyle = inputColor.value
+cxDrawing.strokeStyle = cxPreview.strokeStyle = inputColor.value
 
 colorPickerElement.appendChild(inputColor)
 
@@ -18,13 +18,13 @@ colorPickerElement.appendChild(inputColor)
 inputColor.addEventListener('input', e => {
   const { value } = e.currentTarget as HTMLInputElement
 
-  cxPreview.fillStyle = value
-  cxPreview.strokeStyle = value
+  cxDrawing.fillStyle = cxPreview.fillStyle = value
+  cxDrawing.strokeStyle = cxPreview.strokeStyle = value
 })
 
 canvasDrawing.addEventListener('customResize', () => {
-  cxPreview.strokeStyle = inputColor.value
-  cxPreview.fillStyle = inputColor.value
+  cxDrawing.fillStyle = cxPreview.fillStyle = inputColor.value
+  cxDrawing.strokeStyle = cxPreview.strokeStyle = inputColor.value
 })
 
 export const colorPicker = new Tool('color picker', colorPickerElement, null)
