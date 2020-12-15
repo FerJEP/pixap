@@ -1,12 +1,18 @@
 export function moveElement(
   el: HTMLElement,
-  movementX: number,
-  movementY: number
+  top: number,
+  left: number,
+  add = false
 ) {
-  const { position, top, left } = getComputedStyle(el)
+  const style = getComputedStyle(el)
 
-  if (position === 'static') return
+  if (style.position === 'static') return
 
-  el.style.left = parseInt(left) + movementX + 'px'
-  el.style.top = parseInt(top) + movementY + 'px'
+  if (add) {
+    el.style.top = parseInt(style.top) + top + 'px'
+    el.style.left = parseInt(style.left) + left + 'px'
+  } else {
+    el.style.top = top + 'px'
+    el.style.left = left + 'px'
+  }
 }

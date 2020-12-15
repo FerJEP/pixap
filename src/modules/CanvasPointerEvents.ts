@@ -48,7 +48,7 @@ canvasContainer.addEventListener(
 canvasContainer.addEventListener('mousemove', e => {
   if (e.buttons === 4) {
     // wheel button
-    moveElement(layersContainer!, e.movementX, e.movementY)
+    moveElement(layersContainer!, e.movementY, e.movementX, true)
   } else if (e.buttons === 1) {
     // left click button
     const point = getPositionInCanvas(e.clientX, e.clientY)
@@ -88,7 +88,7 @@ canvasContainer.addEventListener(
       const movementY = Math.floor(currentY - previousY)
 
       // moveElement adds to the element position
-      moveElement(layersContainer!, movementX, movementY)
+      moveElement(layersContainer!, movementY, movementX, true)
       previous2TouchEvent = e
     } else {
       const point = getPositionInCanvas(
