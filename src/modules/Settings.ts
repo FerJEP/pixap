@@ -1,5 +1,6 @@
 import { canvasDrawing, setCanvasDrawingSize } from '../canvas'
 import { canvasState } from '../canvasState'
+import { fitToScreen } from './Controllers/controllers/fitToScreen'
 import { fileNameInput } from './Navbar'
 
 interface ISettings {
@@ -28,6 +29,7 @@ settingsForm.addEventListener('submit', e => {
   e.preventDefault()
   getSettings()
   applySettings()
+  fitToScreen.action()
   canvasState.clear()
   closeSettings()
 })
