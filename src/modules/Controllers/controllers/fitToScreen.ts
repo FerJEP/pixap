@@ -1,11 +1,12 @@
+import { Controller } from './Controller'
 import {
   canvasContainer,
   canvasDrawing,
   layersContainer,
   setLayersContainerSize,
 } from '../../../canvas'
+import { setLevel } from './zoom'
 import { moveElement } from '../../../scripts/moveElement'
-import { Controller } from './Controller'
 
 const fitToScreenElement = Controller.createElement('octicon-screen-normal-24')
 
@@ -22,6 +23,9 @@ const fitToScreenMethod = () => {
   }
 
   setLayersContainerSize(width, height)
+
+  //reseting zoom level
+  setLevel(0)
 
   //Moving element to the center
   moveElement(
