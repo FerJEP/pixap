@@ -15,8 +15,6 @@ const zoomInElement = Controller.createElement('codicon:zoom-in')
 const zoomInMethod = () => {
   let width = layersContainer!.clientWidth + zoomStep
 
-  if (width > canvasContainer.clientWidth) return
-
   setLayersContainerSize(width)
   level++
 }
