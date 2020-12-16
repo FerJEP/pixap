@@ -10,7 +10,7 @@ const floodFillMethod: ToolMethod = (cx, points) => {
 
   const imageData = cx.getImageData(0, 0, cx.canvas.width, cx.canvas.height)
   const point = points[points.length - 1]
-  const pointIndex = point.y * (imageData.width * 4) + point.x * 4
+  const pointIndex = getImageDataIndex(imageData, point)
 
   // rgb -> rgba
   const fillColor = [...convert.hex.rgb(cx.fillStyle.toString()), 255]
@@ -28,7 +28,7 @@ const floodFillMethod: ToolMethod = (cx, points) => {
   cx.putImageData(imageData, 0, 0)
 
   function fill(point: IPoint) {
-    const pointIndex = point.y * (imageData.width * 4) + point.x * 4
+    const pointIndex = getImageDataIndex(imageData, point)
 
     const pointColor = Array.from(
       imageData.data.slice(pointIndex, pointIndex + 4)
@@ -57,8 +57,12 @@ const floodFillMethod: ToolMethod = (cx, points) => {
   }
 }
 
-function sameColor(color1: any[], color2: any[]) {
+export function sameColor(color1: any[], color2: any[]) {
   return color1.every((color, i) => color === color2[i])
+}
+
+export function getImageDataIndex(imageData: ImageData, point: IPoint) {
+  return point.y * (imageData.width * 4) + point.x * 4
 }
 
 export const floodFill = new Tool(
