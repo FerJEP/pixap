@@ -7,6 +7,24 @@ import {
 import { square } from '../../src/modules/Tools/tools/square'
 import { createCanvas } from 'canvas'
 
+/*
+  jest-canvas-mock has some issues with ImageData.
+
+  it seems to not be updating the ImageData with putImageData()
+
+  There is a open issue on Github: 
+  https://github.com/hustcc/jest-canvas-mock/issues/60
+
+  So, within this test, node-canvas is being used.
+  jest-canvas-mock seems to be working fine in the other tool tests.
+*/
+
+const canvas = createCanvas(16, 16)
+const cx = canvas.getContext('2d')
+
+// Clearing canvas after each test
+beforeEach(() => cx.clearRect(0, 0, canvas.width, canvas.height))
+
 test('Flood fill: initialization', () => {
   expect(floodFill.name).toBe('flood fill')
   expect(floodFill.element).toBeInstanceOf(HTMLButtonElement)
@@ -15,48 +33,17 @@ test('Flood fill: initialization', () => {
 })
 
 test('Flood fill: filling a clear canvas', () => {
-  /*
-
-  Creating canvas and context
-
-  I had to set the width and height of the canvas to 16, because if
-  I didn't, I would fill the jest call stack (That is was the error said)
-
-  */
-  const canvas = document.createElement('canvas')
-  const cx = canvas.getContext('2d')!
-
-  canvas.width = canvas.height = 16
-
   // setting black color
   cx.fillStyle = '#000000'
   const blackRgba = [0, 0, 0, 255]
 
   const points = [{ x: 0, y: 0 }]
 
-  const spy = jest.spyOn(cx, 'putImageData')
-
   // Calling tool
   floodFill.method!(cx, points)
 
-  expect(spy).toBeCalled()
-
-  /* 
-  Getting ImageData
-
-  For some reason, getting the imageData of the canvas context after
-  calling the flood fill method does not return the updated ImageData.
-
-  const imageData = cx.getImageData(0, 0, cx.canvas.width, cx.canvas.height)
-
-  It is a jest-canvas-mock issue: 
-  https://github.com/hustcc/jest-canvas-mock/issues/60
-    
-
-  I had to spy on putImageData and get the ImageData from its argument to
-  check if the flood fill method did its job.
-*/
-  const imageData = spy.mock.calls[0][0]
+  // Getting the imageData
+  const imageData = cx.getImageData(0, 0, canvas.width, canvas.height)
 
   // FIRST CHECK
 
@@ -85,17 +72,6 @@ test('Flood fill: filling a clear canvas', () => {
 })
 
 test('Flood fill: filling a square', () => {
-  /*
-    jest-canvas-mock is giving me some problems with getting the
-    ImageData after using putImageData: 
-    
-    https://github.com/hustcc/jest-canvas-mock/issues/60
-    
-    so I'm trying node-canvas within this test
-  */
-  const canvas = createCanvas(16, 16)
-  const cx = canvas.getContext('2d')
-
   // Setting colors
   const squareColor = {
     //Black
@@ -127,7 +103,6 @@ test('Flood fill: filling a square', () => {
   floodFill.method!(cx, [{ x: 7, y: 7 }])
 
   const imageData = cx.getImageData(0, 0, canvas.width, canvas.height)
-  let count = 0
 
   // Checking the colors by looping throught the canvas
   for (let x = 0; x < canvas.width; x++) {
@@ -138,7 +113,6 @@ test('Flood fill: filling a square', () => {
 
       const info = isSquare(x, y)
 
-      console.log(info, count)
       if (info === 'stroke') {
         expect(color).toEqual(squareColor.rgba)
       } else if (info === 'fill') {
@@ -146,7 +120,6 @@ test('Flood fill: filling a square', () => {
       } else {
         expect(color).toEqual([0, 0, 0, 0])
       }
-      count++
     }
   }
 
