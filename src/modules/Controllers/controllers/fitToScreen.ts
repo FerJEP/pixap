@@ -39,5 +39,5 @@ export const fitToScreen = new Controller(
   'fit to screen',
   fitToScreenElement,
   fitToScreenMethod,
-  'f'
+  'ctrl+f'
 )
