@@ -47,7 +47,7 @@ test('Flood fill: filling a clear canvas', () => {
 
   // FIRST CHECK
 
-  const pointIndex1 = getImageDataIndex(imageData, points[0])
+  const pointIndex1 = getImageDataIndex(imageData.width, points[0])
 
   // Getting the color in above point
   const color1 = Array.from(imageData.data.slice(pointIndex1, pointIndex1 + 4))
@@ -58,7 +58,7 @@ test('Flood fill: filling a clear canvas', () => {
   // SECOND CHECK
 
   // Getting point 2 from the other corner of the canvas
-  const pointIndex2 = getImageDataIndex(imageData, {
+  const pointIndex2 = getImageDataIndex(imageData.width, {
     x: cx.canvas.width - 1,
     y: cx.canvas.height - 1,
   })
@@ -103,23 +103,28 @@ test('Flood fill: filling a square', () => {
   floodFill.method!(cx, [{ x: 7, y: 7 }])
 
   const imageData = cx.getImageData(0, 0, canvas.width, canvas.height)
-
+  const width = imageData.width
   // Checking the colors by looping throught the canvas
-  for (let x = 0; x < canvas.width; x++) {
-    for (let y = 0; y < canvas.height; y++) {
-      // Getting color
-      const pointIndex = getImageDataIndex(imageData, { x, y })
-      const color = Array.from(imageData.data.slice(pointIndex, pointIndex + 4))
 
-      const info = isSquare(x, y)
+  for (let i = 0; i < imageData.data.length; i += 4) {
+    const color = [
+      imageData.data[i],
+      imageData.data[i + 1],
+      imageData.data[i + 2],
+      imageData.data[i + 3],
+    ]
 
-      if (info === 'stroke') {
-        expect(color).toEqual(squareColor.rgba)
-      } else if (info === 'fill') {
-        expect(color).toEqual(fillColor.rgba)
-      } else {
-        expect(color).toEqual([0, 0, 0, 0])
-      }
+    const x = (i / 4) % width
+    const y = Math.floor(i / 4 / width)
+
+    const info = isSquare(x, y)
+
+    if (info === 'stroke') {
+      expect(color).toEqual(squareColor.rgba)
+    } else if (info === 'fill') {
+      expect(color).toEqual(fillColor.rgba)
+    } else {
+      expect(color).toEqual([0, 0, 0, 0])
     }
   }
 
