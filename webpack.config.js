@@ -1,4 +1,5 @@
 const path = require('path')
+const CleanWebpackPlugin = require('clean-webpack-plugin').CleanWebpackPlugin
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
@@ -32,18 +33,31 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
+        test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
+        loader: 'file-loader',
       },
       {
         test: /\.html$/i,
         loader: 'html-loader',
+        options: {
+          attributes: {
+            list: [
+              '...',
+              {
+                tag: 'link',
+                attribute: 'href',
+                type: 'src',
+              },
+            ],
+          },
+        },
       },
     ],
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'src', 'template.html'),
+      template: path.resolve(__dirname, 'src', 'public', 'index.html'),
     }),
   ],
 }
