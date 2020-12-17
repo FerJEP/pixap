@@ -1,4 +1,5 @@
-# Pixap
+# Poinxel
+
 Online editor drawing for pixel arts.
 
-## [Live Demo](https://pixap.netlify.app/)
+## [Live Demo](https://poinxel.netlify.app/)
