@@ -1,6 +1,6 @@
- # [<img src="./src/public/logo.png" title="Poincel" alt="Poincel" style="width: 140px; background: #1f1f1f;"/>](https://poinxel.netlify.app/) ![Website](https://img.shields.io/website?down_color=%23bd1206&down_message=Down&label=Online&style=plastic&up_color=%2339d600&up_message=Up&url=https%3A%2F%2Fpoinxel.netlify.app%2F)
+ # [Poinxel](https://poinxel.netlify.app/) ![Website](https://img.shields.io/website?down_color=%23bd1206&down_message=Down&label=Online&style=plastic&up_color=%2339d600&up_message=Up&url=https%3A%2F%2Fpoinxel.netlify.app%2F)
 
-An online drawing app for pixel arts.
+![Poinxel](./src/public/favicon-32x32.png) An online drawing app for pixel arts.
 
 - [x] Responsive 
 - [x] Touchscreen support
